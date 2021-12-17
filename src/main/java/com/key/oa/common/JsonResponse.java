@@ -15,9 +15,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class JsonResponse<T> {
     /**
-     * 需要封装的数据
+     * 状态码
      */
-    private T data;
+    private String code;
 
     /**
      * 返回的额外信息
@@ -25,9 +25,9 @@ public class JsonResponse<T> {
     private String message;
 
     /**
-     * 状态码
+     * 需要封装的数据
      */
-    private String code;
+    private T data;
 
     public JsonResponse(T data) {
         this.data = data;

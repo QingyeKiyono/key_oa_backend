@@ -1,5 +1,6 @@
 package com.key.oa.controller;
 
+import com.key.oa.common.JsonResponse;
 import com.key.oa.service.EmployeeService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +19,7 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping("/count")
-    public long count() {
-        return employeeService.count();
+    public JsonResponse<Long> count() {
+        return new JsonResponse<>("000", "", employeeService.count());
     }
 }
