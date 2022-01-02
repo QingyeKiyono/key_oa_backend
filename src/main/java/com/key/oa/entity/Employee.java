@@ -3,8 +3,10 @@ package com.key.oa.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author 孙强
@@ -24,8 +26,10 @@ public class Employee {
 
     /**
      * 员工的真实姓名
-     * 要求：非空
+     * 要求：非空、最大长度为20
      */
+    @NotNull
+    @Length(max = 20)
     @Column(nullable = false)
     private String realName;
 
@@ -33,6 +37,7 @@ public class Employee {
      * 员工的密码
      * 要求：非空
      */
+    @NotNull
     @Column(nullable = false)
     private String password;
 
@@ -45,6 +50,7 @@ public class Employee {
      * 员工的电话号码
      * 要求：非空
      */
+    @NotNull
     @Column(nullable = false)
     private String phone;
 
@@ -52,6 +58,7 @@ public class Employee {
      * 员工的性别
      * 要求：非空
      */
+    @NotNull
     @Column(nullable = false)
     private Boolean gender;
 
@@ -59,12 +66,14 @@ public class Employee {
      * 员工的身份证号码
      * 要求：非空、唯一
      */
+    @NotNull
     @Column(nullable = false, unique = true)
     private String identity;
 
     /**
      * 员工账号是否为管理员账号（暂定）
      */
+    @NotNull
     @Column(nullable = false)
     private Boolean admin;
 }

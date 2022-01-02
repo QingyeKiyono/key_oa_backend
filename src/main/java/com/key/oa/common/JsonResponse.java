@@ -29,15 +29,15 @@ public class JsonResponse<T> {
      */
     private T data;
 
-    public JsonResponse(T data) {
-        this.data = data;
-        this.code = "0";
-        this.message = "";
+    public JsonResponse(ResponseInfo responseInfo) {
+        this.code = responseInfo.getCode();
+        this.message = responseInfo.getMessage();
+        this.data = null;
     }
 
-    public JsonResponse(String code, String message) {
-        this.code = code;
-        this.message = message;
-        this.data = null;
+    public JsonResponse(ResponseInfo responseInfo, T data) {
+        this.code = responseInfo.getCode();
+        this.message = responseInfo.getMessage();
+        this.data = data;
     }
 }
