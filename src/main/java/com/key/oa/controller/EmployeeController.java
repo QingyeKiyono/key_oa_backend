@@ -35,4 +35,10 @@ public class EmployeeController {
     public JsonResponse<List<Employee>> findAll() {
         return new JsonResponse<>(ResponseInfo.OK, this.employeeService.findAll());
     }
+
+    @DeleteMapping("/")
+    public JsonResponse<Object> deleteByIdentity(@RequestBody String identity) {
+        this.employeeService.deleteByIdentity(identity);
+        return new JsonResponse<>(ResponseInfo.OK);
+    }
 }

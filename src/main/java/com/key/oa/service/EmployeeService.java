@@ -16,11 +16,11 @@ public interface EmployeeService {
     void save(Employee employee);
 
     /**
-     * 删除员工
+     * 根据身份证号删除员工
      *
-     * @param employee 需要删除的员工
+     * @param identity 需要删除的员工的身份证号
      */
-    void delete(Employee employee);
+    void deleteByIdentity(String identity);
 
     /**
      * 查询员工的人数

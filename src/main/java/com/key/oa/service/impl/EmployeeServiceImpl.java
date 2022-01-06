@@ -4,6 +4,7 @@ import com.key.oa.dao.EmployeeDAO;
 import com.key.oa.entity.Employee;
 import com.key.oa.service.EmployeeService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,8 +24,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void delete(Employee employee) {
-        this.employeeDAO.delete(employee);
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteByIdentity(String identity) {
+        this.employeeDAO.deleteByIdentity(identity);
     }
 
     @Override
