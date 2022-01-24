@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 孙强
@@ -40,5 +41,11 @@ public class EmployeeController {
     public JsonResponse<Object> deleteByIdentity(@RequestBody String identity) {
         this.employeeService.deleteByIdentity(identity);
         return new JsonResponse<>(ResponseInfo.OK);
+    }
+
+    @GetMapping("/{id}")
+    public JsonResponse<Employee> findById(@PathVariable Long id) {
+        Optional<Employee> result = this.employeeService.findById(id);
+        return result.map(employee -> new JsonResponse<>(ResponseInfo.OK, employee)).orElseGet(() -> new JsonResponse<>(ResponseInfo.EMPLOYEE_NOT_FOUND));
     }
 }

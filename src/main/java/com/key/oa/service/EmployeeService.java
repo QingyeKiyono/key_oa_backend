@@ -3,6 +3,7 @@ package com.key.oa.service;
 import com.key.oa.entity.Employee;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 孙强
@@ -35,4 +36,12 @@ public interface EmployeeService {
      * @return 所有的员工信息
      */
     List<Employee> findAll();
+
+    /**
+     * 根据Id查找员工信息
+     *
+     * @param id 需要查找的员工Id
+     * @return 符合条件的员工信息
+     */
+    Optional<Employee> findById(Long id);
 }

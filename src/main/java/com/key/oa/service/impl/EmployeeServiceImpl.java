@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 孙强
@@ -37,5 +38,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> findAll() {
         return this.employeeDAO.findAll();
+    }
+
+    @Override
+    public Optional<Employee> findById(Long id) {
+        return this.employeeDAO.findById(id);
     }
 }

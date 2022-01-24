@@ -9,7 +9,9 @@ public enum ResponseInfo {
     /**
      * 没有异常，程序正常返回
      */
-    OK("000");
+    OK("000"),
+
+    EMPLOYEE_NOT_FOUND("001");
 
     private final String code;
 
