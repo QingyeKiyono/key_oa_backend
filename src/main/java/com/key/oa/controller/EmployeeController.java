@@ -16,7 +16,7 @@ import java.util.Optional;
  * 员工操作的接口
  */
 @RestController
-@RequestMapping("employee")
+@RequestMapping(value = "/employee", produces = "application/json; charset=UTF-8")
 public class EmployeeController {
     @Resource
     private EmployeeService employeeService;
