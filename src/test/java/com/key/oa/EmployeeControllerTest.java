@@ -119,4 +119,16 @@ public class EmployeeControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.data").value(countString));
 
     }
+
+    @Test
+    public void testFindById() throws Exception {
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/-1").accept(MediaType.APPLICATION_JSON).characterEncoding("UTF-8"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseInfo.EMPLOYEE_NOT_FOUND.getCode()));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/9").accept(MediaType.APPLICATION_JSON).characterEncoding("UTF-8"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseInfo.OK.getCode()))
+                .andDo(MockMvcResultHandlers.print());
+    }
 }
