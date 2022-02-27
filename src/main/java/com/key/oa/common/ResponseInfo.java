@@ -11,7 +11,9 @@ public enum ResponseInfo {
      */
     OK("000"),
 
-    EMPLOYEE_NOT_FOUND("001");
+    EMPLOYEE_NOT_FOUND("001"),
+
+    UNKNOWN_EXCEPTION("999");
 
     private final String code;
 
