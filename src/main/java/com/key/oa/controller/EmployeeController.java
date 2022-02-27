@@ -4,6 +4,7 @@ import com.key.oa.common.JsonResponse;
 import com.key.oa.common.ResponseInfo;
 import com.key.oa.entity.Employee;
 import com.key.oa.service.EmployeeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,6 +16,7 @@ import java.util.Optional;
  * @author 孙强
  * 员工操作的接口
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "/employee", produces = "application/json; charset=UTF-8")
 public class EmployeeController {
@@ -29,6 +31,7 @@ public class EmployeeController {
     @PostMapping("/")
     public JsonResponse<Object> save(@RequestBody @Valid Employee employee) {
         this.employeeService.save(employee);
+        log.info("Employee saved: {}", employee);
         return new JsonResponse<>(ResponseInfo.OK);
     }
 
