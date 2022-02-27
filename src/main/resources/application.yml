@@ -1,4 +1,7 @@
 spring:
+  main:
+    banner-mode: off
+
   datasource:
     name: druidDataSource
     type: com.alibaba.druid.pool.DruidDataSource
@@ -8,9 +11,5 @@ spring:
       password: root
       url: jdbc:mysql://localhost:3306/key_oa?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
 
-  # 自动生成建表语句
-  # 不要在生产环境中使用！！！
-  jpa:
-    hibernate:
-      ddl-auto: update
-    open-in-view: false
+  profiles:
+    active: dev
