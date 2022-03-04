@@ -28,21 +28,21 @@ public class EmployeeController {
         return new JsonResponse<>(ResponseInfo.OK, employeeService.count());
     }
 
-    @PostMapping("/")
+    @PostMapping("")
     public JsonResponse<Object> save(@RequestBody @Valid Employee employee) {
         this.employeeService.save(employee);
         log.info("Employee saved: {}", employee);
         return new JsonResponse<>(ResponseInfo.OK);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     public JsonResponse<List<Employee>> findAll() {
         return new JsonResponse<>(ResponseInfo.OK, this.employeeService.findAll());
     }
 
-    @DeleteMapping("/")
-    public JsonResponse<Object> deleteByIdentity(@RequestBody String identity) {
-        this.employeeService.deleteByIdentity(identity);
+    @DeleteMapping("/{id}")
+    public JsonResponse<Object> deleteByIdentity(@PathVariable Long id) {
+        this.employeeService.deleteById(id);
         return new JsonResponse<>(ResponseInfo.OK);
     }
 

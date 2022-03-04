@@ -26,8 +26,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void deleteByIdentity(String identity) {
-        this.employeeDAO.deleteByIdentity(identity);
+    public void deleteById(Long id) {
+        this.employeeDAO.deleteById(id);
     }
 
     @Override

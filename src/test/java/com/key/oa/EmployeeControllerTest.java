@@ -30,6 +30,73 @@ public class EmployeeControllerTest {
     private MockMvc mockMvc;
 
     /**
+     * 测试按照指定id查找员工信息的接口
+     * 需要放在第一个执行
+     */
+    @Test
+    @Transactional
+    @Order(1)
+    public void testFindById() throws Exception {
+        // 测试必然会失败的情况
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/-1")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseInfo.EMPLOYEE_NOT_FOUND.getCode()));
+
+        // 添加一个员工，此时只有一个员工
+        Employee employee = FakeEntity.employee();
+        String content = mapper.writeValueAsString(employee);
+        mockMvc.perform(MockMvcRequestBuilders.post("/employee/")
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(content)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        // 此时能够找到id为1的员工信息
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/1")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseInfo.OK.getCode()))
+                .andDo(MockMvcResultHandlers.print());
+    }
+
+    /**
+     * 通过先增加再删除的方式验证删除员工的接口是否正常工作
+     */
+    @Test
+    @Transactional
+    @Order(2)
+    public void testDeleteById() throws Exception {
+        Employee employee = FakeEntity.employee();
+
+        // 记录添加员工之前的员工总数
+        String jsonResult = mockMvc.perform(MockMvcRequestBuilders.get("/employee/count").accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseInfo.OK.getCode()))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        String countString = JsonPath.read(jsonResult, "$.data");
+
+        // 添加员工
+        String content = mapper.writeValueAsString(employee);
+        mockMvc.perform(MockMvcRequestBuilders.post("/employee/").accept(MediaType.APPLICATION_JSON).content(content).contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // 删除员工
+        mockMvc.perform(MockMvcRequestBuilders.delete("/employee/2").accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseInfo.OK.getCode()))
+                .andDo(MockMvcResultHandlers.print());
+
+        // 验证添加前和删除后的员工数量一致
+        mockMvc.perform(MockMvcRequestBuilders.get("/employee/count").accept(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.data").value(countString));
+    }
+
+    /**
      * 测试返回数据的基本格式是否正确
      */
     @Test
@@ -102,75 +169,6 @@ public class EmployeeControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(mapper.writeValueAsString(new Employee()))
                         .contentType(MediaType.APPLICATION_JSON))
-                .andDo(MockMvcResultHandlers.print());
-    }
-
-    /**
-     * 通过先增加再删除的方式验证删除员工的接口是否正常工作
-     */
-    @Test
-    @Transactional
-    public void testDeleteByIdentity() throws Exception {
-        Employee employee = FakeEntity.employee();
-
-        // 设置身份证号
-        String identity = employee.getIdentity();
-
-        // 记录添加员工之前的员工总数
-        String jsonResult = mockMvc.perform(MockMvcRequestBuilders.get("/employee/count").accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseInfo.OK.getCode()))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
-        String countString = JsonPath.read(jsonResult, "$.data");
-
-        // 添加员工
-        String content = mapper.writeValueAsString(employee);
-        mockMvc.perform(MockMvcRequestBuilders.post("/employee/").accept(MediaType.APPLICATION_JSON).content(content).contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-
-        // 删除员工
-        mockMvc.perform(MockMvcRequestBuilders.delete("/employee/").accept(MediaType.APPLICATION_JSON).content(identity).contentType(MediaType.TEXT_PLAIN_VALUE))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseInfo.OK.getCode()))
-                .andDo(MockMvcResultHandlers.print());
-
-        // 验证添加前和删除后的员工数量一致
-        mockMvc.perform(MockMvcRequestBuilders.get("/employee/count").accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.data").value(countString));
-    }
-
-    /**
-     * 测试按照指定id查找员工信息的接口
-     * 需要放在第一个执行
-     */
-    @Test
-    @Transactional
-    @Order(1)
-    public void testFindById() throws Exception {
-        // 测试必然会失败的情况
-        mockMvc.perform(MockMvcRequestBuilders.get("/employee/-1")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseInfo.EMPLOYEE_NOT_FOUND.getCode()));
-
-        // 添加一个员工，此时只有一个员工
-        Employee employee = FakeEntity.employee();
-        String content = mapper.writeValueAsString(employee);
-        mockMvc.perform(MockMvcRequestBuilders.post("/employee/")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .content(content)
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print());
-
-        // 此时能够找到id为1的员工信息
-        mockMvc.perform(MockMvcRequestBuilders.get("/employee/1")
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.code").value(ResponseInfo.OK.getCode()))
                 .andDo(MockMvcResultHandlers.print());
     }
 }

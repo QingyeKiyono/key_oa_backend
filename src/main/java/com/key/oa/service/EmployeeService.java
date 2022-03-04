@@ -19,9 +19,9 @@ public interface EmployeeService {
     /**
      * 根据身份证号删除员工
      *
-     * @param identity 需要删除的员工的身份证号
+     * @param id 需要删除的员工的身份证号
      */
-    void deleteByIdentity(String identity);
+    void deleteById(Long id);
 
     /**
      * 查询员工的人数
