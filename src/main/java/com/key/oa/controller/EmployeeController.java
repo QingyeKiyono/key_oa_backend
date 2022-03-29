@@ -43,6 +43,7 @@ public class EmployeeController {
     @DeleteMapping("/{id}")
     public JsonResponse<Object> deleteByIdentity(@PathVariable Long id) {
         this.employeeService.deleteById(id);
+        log.info("Employee with id: {} deleted.", id);
         return new JsonResponse<>(ResponseInfo.OK);
     }
 
