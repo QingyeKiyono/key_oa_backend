@@ -11,4 +11,11 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long>, JpaSpecificationExecutor<Employee> {
+    /**
+     * 根据工号查找员工信息，使用Spring Data Jpa中的自带方法
+     *
+     * @param jobNumber 员工的工号
+     * @return 查找到的员工信息
+     */
+    Employee findByJobNumber(String jobNumber);
 }
