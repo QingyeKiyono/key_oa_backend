@@ -1,25 +1,34 @@
 -- 创建初始的员工类
 INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email, phone)
-VALUES (null, '葛瑞', '140601195510311195', '2011-05-10', 'yrurlg424d', '20222911', 'ming34@example.com', '18583797888');
+VALUES (null, '芦畅', '370902199510230073', '2004-12-29', '$2b$12$ng/BWaCbONMJBiWe8YbY4.VdHvWkB99jnfv2XXYKXjArvvzdOjF0m',
+        '20221390', 'jing66@example.org', '13625749433');
 INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email, phone)
-VALUES (null, '农鹏', '410622198502051777', '1970-08-17', '6pmvzff76t', '20224228', 'yonghe@example.net', '18088734354');
+VALUES (null, '彭旭', '360828199001081053', '1983-12-04', '$2b$12$TrjFXCCClrFwupIHl4mh9u51rhP6XOhhH2MxDQAjxwPls1d/bJO7a',
+        '20223395', 'qluo@example.net', '18622101447');
 INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email, phone)
-VALUES (null, '杨兵', '231202196111241152', '2000-03-16', 'nwizlpqp52', '20224767', 'xfeng@example.com', '15618769561');
+VALUES (null, '张亮', '310116194010074722', '1973-09-04', '$2b$12$/VgrlmGKDrAfktsYQGEywOv2KGzdS5HVWr4blpUNVsUPf.EqS.Fl2',
+        '20221375', 'xiulanzeng@example.net', '13423600682');
 INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email, phone)
-VALUES (null, '唐洋', '41050519730216392X', '2007-09-25', 'wvgbh8s24q', '20222655', 'majie@example.net', '13955798773');
+VALUES (null, '马柳', '341622196011308498', '2005-05-17', '$2b$12$IsR6OsIJ/CmicLjPN0aqGuldpfxlFghvXoV7nTgKYgqIID5iU4V4.',
+        '20221973', 'qiang22@example.com', '13355470169');
 INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email, phone)
-VALUES (null, '黄雪梅', '430200194004159369', '2020-01-18', 'cno4zu6qp9', '20222675', 'fengna@example.org', '13132322916');
+VALUES (null, '李丽华', '620200197001087012', '1994-03-23', '$2b$12$4VHnadza7wSujjJ1djF58uvh3zWM1u93Gk9DNKEh9ObJu75pG9NWm',
+        '20222143', 'xiuyinglei@example.org', '15317475176');
 INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email, phone)
-VALUES (null, '鲁红梅', '320981197103227712', '1982-08-03', '46ogs6hfnk', '20224960', 'lei29@example.com', '13674681660');
+VALUES (null, '王莉', '610124197509143648', '1989-04-24', '$2b$12$j0hh5msRvDC7bDMSFigaH.Bi2hMVw0WYjpkWNRNHI2G49FV5OB/ES',
+        '20224804', 'xuewei@example.net', '18204706986');
 INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email, phone)
-VALUES (null, '王玉梅', '451301200011168217', '2002-09-08', 'e42ukcovck', '20221153', 'iyang@example.com', '13094719671');
+VALUES (null, '吴成', '610430193511122374', '1983-07-20', '$2b$12$hHQL/xgxtAfnw3X.U70ZX.RSFq72JSxCInAWaXyvtAqszKbd.Sg0G',
+        '20222870', 'weiduan@example.com', '13922188526');
 INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email, phone)
-VALUES (null, '赵强', '141129198304090591', '1995-03-03', 'f50tszlyq0', '20224876', 'xia00@example.org', '18249888700');
+VALUES (null, '赖军', '520200196107240267', '2014-05-02', '$2b$12$.E7OeUSFcy9swkk8csyu4uDidI0pmaBN91WbU6VCCSP0ZJ0qtr3Uy',
+        '20221147', 'daiyong@example.com', '15792404507');
 INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email, phone)
-VALUES (null, '张建国', '520323194208039598', '1983-08-14', 'feljgcq81k', '20221367', 'xiulanlei@example.net',
-        '15953757291');
+VALUES (null, '曾红霞', '31010619411216016X', '2017-06-04', '$2b$12$63viMjH0ByleoQ30Lt3lWOtZpnElYcX8SiEwHhXEYduKMgu0RhyMq',
+        '20223930', 'naliao@example.org', '18719188016');
 INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email, phone)
-VALUES (null, '李涛', '441701200104284567', '2004-11-04', '5qbgam9312', '20223864', 'weiqian@example.net', '13360483849');
+VALUES (null, '冼磊', '310105196301133892', '1990-09-09', '$2b$12$HWhuM6QFEQVc.6Qu60r1KunlcHojWRK4bXUNs747sPD4NRlj.DNKS',
+        '20223187', 'tao34@example.org', '13588443941');
 
 -- this is a sql comment
 INSERT INTO `role`(id, name, parent_id)
