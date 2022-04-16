@@ -1,6 +1,6 @@
 package com.key.oa.service.impl;
 
-import com.key.oa.dto.LoginEmployee;
+import com.key.oa.domain.LoginEmployee;
 import com.key.oa.entity.Employee;
 import com.key.oa.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;

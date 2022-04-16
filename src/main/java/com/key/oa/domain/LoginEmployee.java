@@ -1,4 +1,4 @@
-package com.key.oa.dto;
+package com.key.oa.domain;
 
 import com.key.oa.entity.Employee;
 import lombok.AllArgsConstructor;
