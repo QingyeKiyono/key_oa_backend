@@ -30,5 +30,9 @@ spring:
         max-active: 32
         min-idle: 8
 
-  profiles:
-    active: dev
+  config:
+    import: application-dev.yml
+
+key-oa:
+  jwt:
+    salt: 1Jvq2wYsh3B2Ex9UZlNwNUMpbCILbvQt
