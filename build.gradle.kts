@@ -22,12 +22,14 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis:2.6.6")
     implementation("org.springframework.boot:spring-boot-starter-aop:2.6.6")
     implementation("org.springframework.boot:spring-boot-configuration-processor:2.6.6")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.6.6")
     compileOnly("org.projectlombok:lombok:1.18.22")
     annotationProcessor("org.projectlombok:lombok:1.18.22")
     testCompileOnly("org.projectlombok:lombok:1.18.22")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.22")
     implementation("com.alibaba:druid-spring-boot-starter:1.2.8")
     implementation("com.google.guava:guava:31.1-jre")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("org.apache.commons:commons-pool2:2.11.1")
     implementation("io.jsonwebtoken:jjwt-api:0.11.2")
     runtimeOnly("org.springframework.boot:spring-boot-devtools:2.6.6")
@@ -50,6 +52,10 @@ publishing {
     }
 }
 
-tasks.withType<JavaCompile>() {
+tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
+
+buildscript { repositories { mavenCentral() } }
+
+
