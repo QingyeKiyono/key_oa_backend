@@ -51,7 +51,7 @@ public class Employee {
     private String password;
 
     @Column(nullable = false)
-    private Boolean validated;
+    private Boolean verified;
 
     @ManyToMany(mappedBy = "employees")
     private Set<Role> roles = new HashSet<>();
