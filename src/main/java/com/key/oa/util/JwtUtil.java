@@ -10,9 +10,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
-import java.util.Date;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author 孙强
@@ -38,8 +36,16 @@ public class JwtUtil {
      */
     private String salt;
 
-    public String generate() {
-        return builder().compact();
+    public String generate(String subject) {
+        return generateWithClaims(subject, null);
+    }
+
+    public String generateWithClaims(String subject, Map<String, Object> claims) {
+        builder().setSubject(subject);
+        if (Objects.isNull(claims)) {
+            return builder().compact();
+        }
+        return builder().setClaims(claims).compact();
     }
 
     private JwtBuilder builder() {

@@ -26,6 +26,6 @@ public class IndexController {
 
     @GetMapping("/jwt")
     public String generateJwt() {
-        return jwtUtil.generate();
+        return jwtUtil.generate("Hello, JWT!");
     }
 }

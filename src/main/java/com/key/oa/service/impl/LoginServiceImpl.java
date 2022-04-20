@@ -41,7 +41,7 @@ public class LoginServiceImpl implements LoginService {
 
         log.info("员工: %s 成功登录".formatted(authentication.getName()));
         // 认证通过，生成Jwt，传入对象
-        String token = jwtUtil.generate();
+        String token = jwtUtil.generate(authentication.getName());
 
         return new JsonResponse<>(ResponseInfo.OK, token);
     }
