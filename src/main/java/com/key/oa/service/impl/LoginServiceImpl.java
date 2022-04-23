@@ -2,10 +2,13 @@ package com.key.oa.service.impl;
 
 import com.key.oa.common.JsonResponse;
 import com.key.oa.common.ResponseInfo;
+import com.key.oa.domain.LoginEmployee;
 import com.key.oa.dto.LoginDTO;
 import com.key.oa.service.LoginService;
 import com.key.oa.util.JwtUtil;
+import com.key.oa.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,11 +25,15 @@ import java.util.Objects;
 public class LoginServiceImpl implements LoginService {
     private final JwtUtil jwtUtil;
 
+    private final RedisUtil redisUtil;
+
     private final AuthenticationManager authenticationManager;
 
-    public LoginServiceImpl(AuthenticationManager authenticationManager, JwtUtil jwtUtil) {
+    @Autowired
+    public LoginServiceImpl(AuthenticationManager authenticationManager, JwtUtil jwtUtil, RedisUtil redisUtil) {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.redisUtil = redisUtil;
     }
 
     @Override
@@ -38,11 +45,15 @@ public class LoginServiceImpl implements LoginService {
         if (Objects.isNull(authentication)) {
             return new JsonResponse<>(ResponseInfo.EMPLOYEE_NOT_FOUND, "登录失败");
         }
+        String loginEmployeeJobNumber = authentication.getName();
+        log.info("员工: %s 成功登录".formatted(loginEmployeeJobNumber));
 
-        log.info("员工: %s 成功登录".formatted(authentication.getName()));
-        // 认证通过，生成Jwt，传入对象
-        String token = jwtUtil.generate(authentication.getName());
+        // 将登陆信息存入redis
+        LoginEmployee loginEmployee = (LoginEmployee) authentication.getPrincipal();
+        redisUtil.setKeyValue("login:" + loginEmployeeJobNumber, loginEmployee);
 
+        // 生成Jwt，返回给前端
+        String token = jwtUtil.generate(loginEmployeeJobNumber);
         return new JsonResponse<>(ResponseInfo.OK, token);
     }
 }
