@@ -15,4 +15,11 @@ public interface LoginService {
      * @return 登录结果，直接由Controller返回给前端
      */
     JsonResponse<String> login(LoginDTO loginDTO);
+
+    /**
+     * 退出登录的具体方法
+     *
+     * @return 成功退出登录
+     */
+    JsonResponse<Object> logout();
 }

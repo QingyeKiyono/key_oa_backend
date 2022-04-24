@@ -44,6 +44,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // 覆盖掉原有的logout接口，否则会自动重定向而无法正常完成功能
+        http.logout().logoutUrl("/defaultLogout");
+        http.antMatcher("/defaultLogout");
     }
 
     @Bean

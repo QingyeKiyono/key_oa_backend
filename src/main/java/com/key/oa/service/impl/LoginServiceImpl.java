@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -55,5 +56,19 @@ public class LoginServiceImpl implements LoginService {
         // 生成Jwt，返回给前端
         String token = jwtUtil.generate(loginEmployeeJobNumber);
         return new JsonResponse<>(ResponseInfo.OK, token);
+    }
+
+    @Override
+    public JsonResponse<Object> logout() {
+        // 获取当前登录的员工信息
+        UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken)
+                SecurityContextHolder.getContext().getAuthentication();
+        LoginEmployee loginEmployee = (LoginEmployee) authentication.getPrincipal();
+
+        // 获取key并从redis中删除
+        String key = "login:" + loginEmployee.getUsername();
+        redisUtil.deleteValue(key);
+
+        return new JsonResponse<>(ResponseInfo.OK, null);
     }
 }

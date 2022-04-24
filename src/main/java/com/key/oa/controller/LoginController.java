@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -27,5 +28,11 @@ public class LoginController {
     @PostMapping("/login")
     public JsonResponse<String> login(@RequestBody @Validated LoginDTO loginDTO) {
         return loginService.login(loginDTO);
+    }
+
+    @PostMapping("/logout")
+    public JsonResponse<Object> logout() {
+        log.info("123123");
+        return loginService.logout();
     }
 }
