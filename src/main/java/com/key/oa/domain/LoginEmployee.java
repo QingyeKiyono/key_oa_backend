@@ -1,5 +1,6 @@
 package com.key.oa.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.key.oa.entity.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,10 +13,12 @@ import java.util.Collection;
 /**
  * @author 孙强
  * 登录员工的信息
+ * 需要忽视掉不知道的field，否则在从redis中取数据时会报错
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginEmployee implements UserDetails {
     private Employee employee;
 
