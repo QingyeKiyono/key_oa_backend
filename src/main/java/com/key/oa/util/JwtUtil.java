@@ -1,6 +1,8 @@
 package com.key.oa.util;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import lombok.Data;
@@ -10,6 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.*;
 
 /**
@@ -41,11 +44,18 @@ public class JwtUtil {
     }
 
     public String generateWithClaims(String subject, Map<String, Object> claims) {
-        builder().setSubject(subject);
         if (Objects.isNull(claims)) {
-            return builder().compact();
+            return builder().setSubject(subject).compact();
         }
-        return builder().setClaims(claims).compact();
+        return builder().setClaims(claims).setSubject(subject).compact();
+    }
+
+    public Claims parse(String token) {
+        return parser().parseClaimsJws(token).getBody();
+    }
+
+    private Key key() {
+        return Keys.hmacShaKeyFor(Base64.getEncoder().encode(salt.getBytes(StandardCharsets.UTF_8)));
     }
 
     private JwtBuilder builder() {
@@ -55,6 +65,10 @@ public class JwtUtil {
                 // 默认失效时间为1天
                 .setExpiration(DateUtils.addMinutes(new Date(), ttlByMinute))
                 .setId(UUID.randomUUID().toString())
-                .signWith(Keys.hmacShaKeyFor(Base64.getEncoder().encode(salt.getBytes(StandardCharsets.UTF_8))));
+                .signWith(key());
+    }
+
+    private JwtParser parser() {
+        return Jwts.parserBuilder().setSigningKey(key()).build();
     }
 }
