@@ -2,7 +2,6 @@ package com.key.oa.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
@@ -34,5 +33,9 @@ public class RedisUtil {
 
     public Object getValue(String key) {
         return redisTemplate.opsForValue().get(key);
+    }
+
+    public void deleteValue(String key) {
+        redisTemplate.delete(key);
     }
 }
