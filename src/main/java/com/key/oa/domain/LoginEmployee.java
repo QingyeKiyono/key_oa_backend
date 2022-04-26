@@ -1,14 +1,19 @@
 package com.key.oa.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.key.oa.entity.Employee;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author 孙强
@@ -20,11 +25,31 @@ import java.util.Collection;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class LoginEmployee implements UserDetails {
+
     private Employee employee;
+
+    private List<String> permissions;
+
+    /**
+     * 封装后的权限信息
+     * SimpleGrantedAuthority默认情况下无法被序列化，因此需要忽略
+     */
+    @JsonIgnore
+    private List<SimpleGrantedAuthority> authorities;
+
+    public LoginEmployee(Employee employee, List<String> permissions) {
+        this.employee = employee;
+        this.permissions = permissions;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        if (Objects.nonNull(authorities)) {
+            return authorities;
+        }
+
+        authorities = permissions.stream().map(SimpleGrantedAuthority::new).toList();
+        return authorities;
     }
 
     @Override

@@ -68,7 +68,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 将用户信息存入SecurityContextHolder
         if (Objects.nonNull(loginEmployee)) {
             UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-                    new UsernamePasswordAuthenticationToken(loginEmployee, null, null);
+                    new UsernamePasswordAuthenticationToken(loginEmployee, null, loginEmployee.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
 
