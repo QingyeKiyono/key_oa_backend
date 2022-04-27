@@ -39,6 +39,11 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.6")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.6.RELEASE")
     testImplementation("org.junit.platform:junit-platform-suite-engine:1.8.2")
+
+    // for jaxb
+    implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
+    implementation("org.glassfish.jaxb:jaxb-runtime:3.0.2")
+
 }
 
 group = "com.key"
