@@ -1,5 +1,6 @@
 package com.key.oa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -53,6 +54,7 @@ public class Employee {
     @Column(nullable = false)
     private Boolean verified;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "employees")
     private Set<Role> roles = new HashSet<>();
 
