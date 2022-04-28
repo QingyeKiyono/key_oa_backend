@@ -24,6 +24,9 @@ public class Role {
     @Column(nullable = false)
     private String name;
 
+    @Column(nullable = false)
+    private Boolean active;
+
     /**
      * 这里的父子关系要求必须得删除掉所有的子角色后才能删除父角色（可以同时删除）
      */

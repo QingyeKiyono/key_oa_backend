@@ -30,6 +30,8 @@ INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email
 VALUES (null, '冼磊', '310105196301133892', '1990-09-09', '$2b$12$HWhuM6QFEQVc.6Qu60r1KunlcHojWRK4bXUNs747sPD4NRlj.DNKS',
         '20223187', 'tao34@example.org', '13588443941', false);
 
--- this is a sql comment
-INSERT INTO `role`(id, name, parent_id)
-VALUES (1, 'ROOT', 1);
+-- 创建最初的角色类，一个是ROOT，不可用；一个是用于测试的开发角色
+INSERT INTO `role`(id, active, name, parent_id )
+VALUES (null, false, 'ROOT', 1);
+INSERT INTO `role`(id, active, name, parent_id)
+VALUES (null, true, 'DEV', 1);
