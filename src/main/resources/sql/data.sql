@@ -31,7 +31,26 @@ VALUES (null, '冼磊', '310105196301133892', '1990-09-09', '$2b$12$HWhuM6QFEQVc
         '20223187', 'tao34@example.org', '13588443941', false);
 
 -- 创建最初的角色类，一个是ROOT，不可用；一个是用于测试的开发角色
-INSERT INTO `role`(id, active, name, parent_id )
-VALUES (null, false, 'ROOT', 1);
 INSERT INTO `role`(id, active, name, parent_id)
-VALUES (null, true, 'DEV', 1);
+VALUES (null, false, 'ROOT', null);
+INSERT INTO `role`(id, active, name, parent_id)
+VALUES (null, true, 'DEV', null);
+-- 添加管理员角色和员工角色
+INSERT INTO `role`(id, active, name, parent_id)
+VALUES (null, true, 'admin', 1);
+INSERT INTO `role`(id, active, name, parent_id)
+VALUES (null, true, 'employee', 3);
+
+-- 添加权限信息
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'dev:test', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:employee:list', null);
+
+-- 添加员工和角色的映射信息
+INSERT INTO `role_employees`(roles_id, employees_id)
+VALUES (2, 1);
+
+-- 添加角色和权限的映射信息
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (2, 1);
