@@ -12,10 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author 孙强
@@ -38,12 +35,40 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (employee == null) {
             throw new RuntimeException(String.format("No employee found with job number: %s.", jobNumber));
         }
+        Set<Role> reachableRoles = getReachableRoles(employee.getRoles());
 
         // 把员工信息封装成UserDetails对象返回
-        return new LoginEmployee(employee, getAuthorities(employee.getRoles()));
+        return new LoginEmployee(employee, getAuthorities(reachableRoles));
+    }
+
+    private Set<Role> getReachableRoles(Collection<Role> roles) {
+        if (roles == null || roles.isEmpty()) {
+            return Collections.emptySet();
+        }
+        Set<Role> unprocessedRoles = new HashSet<>(10);
+        unprocessedRoles.addAll(roles);
+
+        Set<Role> reachableRoles = new HashSet<>(20);
+
+        while (!unprocessedRoles.isEmpty()) {
+            Iterator<Role> iterator = unprocessedRoles.iterator();
+            while (iterator.hasNext()){
+                Role role = iterator.next();
+                reachableRoles.add(role);
+
+                unprocessedRoles.remove(role);
+                unprocessedRoles.addAll(role.getChildren());
+            }
+        }
+
+        return reachableRoles;
     }
 
     private List<String> getAuthorities(Set<Role> roles) {
+        if (roles == null || roles.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         List<BaseResource> authorities = new ArrayList<>();
         roles.forEach(role -> authorities.addAll(role.getResources()));
         return authorities.stream().map(BaseResource::getValue).toList();

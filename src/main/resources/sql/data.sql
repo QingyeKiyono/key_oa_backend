@@ -35,11 +35,13 @@ INSERT INTO `role`(id, active, name, parent_id)
 VALUES (null, false, 'ROOT', null);
 INSERT INTO `role`(id, active, name, parent_id)
 VALUES (null, true, 'DEV', null);
+INSERT INTO `role`(id, active, name, parent_id)
+VALUES (null, true, 'test', 2);
 -- 添加管理员角色和员工角色
 INSERT INTO `role`(id, active, name, parent_id)
 VALUES (null, true, 'admin', 1);
 INSERT INTO `role`(id, active, name, parent_id)
-VALUES (null, true, 'employee', 3);
+VALUES (null, true, 'employee', 4);
 
 -- 添加权限信息
 INSERT INTO `base_resource`(id, value, parent_id)
