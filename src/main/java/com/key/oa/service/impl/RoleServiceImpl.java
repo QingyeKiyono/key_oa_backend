@@ -16,19 +16,4 @@ import java.util.stream.Collectors;
  */
 @Service
 public class RoleServiceImpl implements RoleService {
-    private final RoleRepository roleRepository;
-
-    @Autowired
-    public RoleServiceImpl(RoleRepository roleRepository) {
-        this.roleRepository = roleRepository;
-    }
-
-    @Override
-    public String getRoleHierarchyExpression() {
-        List<Role> activeRoles = roleRepository.getAllByActive(true);
-
-        return activeRoles.stream()
-                .map(role -> role.getName() + " > " + role.getParent().getName())
-                .collect(Collectors.joining("\n"));
-    }
 }
