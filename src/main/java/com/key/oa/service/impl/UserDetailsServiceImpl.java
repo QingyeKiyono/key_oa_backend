@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         // 根据登录的工号查询员工信息
         Employee employee = employeeService.findByJobNumber(jobNumber);
         if (employee == null) {
-            throw new RuntimeException(String.format("No employee found with job number: %s.", jobNumber));
+            throw new UsernameNotFoundException(String.format("No employee found with job number: %s.", jobNumber));
         }
         Set<Role> reachableRoles = getReachableRoles(employee.getRoles());
 
