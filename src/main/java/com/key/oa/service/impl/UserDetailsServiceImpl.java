@@ -51,11 +51,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Set<Role> reachableRoles = new HashSet<>(20);
 
         while (!unprocessedRoles.isEmpty()) {
-            Iterator<Role> iterator = unprocessedRoles.iterator();
-            while (iterator.hasNext()){
-                Role role = iterator.next();
+            for (Role role : unprocessedRoles) {
                 reachableRoles.add(role);
 
+                //noinspection AlibabaDontModifyInForeachCircle
                 unprocessedRoles.remove(role);
                 unprocessedRoles.addAll(role.getChildren());
             }

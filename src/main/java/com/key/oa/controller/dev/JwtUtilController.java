@@ -1,7 +1,6 @@
 package com.key.oa.controller.dev;
 
 import com.key.oa.common.JsonResponse;
-import com.key.oa.common.ResponseInfo;
 import com.key.oa.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +23,6 @@ public class JwtUtilController {
     @GetMapping("/generate")
     @PreAuthorize("hasAuthority('dev:test')")
     public JsonResponse<Object> generate(@RequestParam String subject) {
-        return new JsonResponse<>(ResponseInfo.OK, jwtUtil.generate(subject));
+        return new JsonResponse<>(jwtUtil.generate(subject));
     }
 }

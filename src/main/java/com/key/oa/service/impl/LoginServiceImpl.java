@@ -1,7 +1,6 @@
 package com.key.oa.service.impl;
 
 import com.key.oa.common.JsonResponse;
-import com.key.oa.common.ResponseInfo;
 import com.key.oa.domain.LoginEmployee;
 import com.key.oa.dto.LoginDTO;
 import com.key.oa.service.LoginService;
@@ -44,7 +43,7 @@ public class LoginServiceImpl implements LoginService {
                         loginDTO.getJobNumber(), loginDTO.getPassword()));
         // 如果认证没通过，给出对应提示
         if (Objects.isNull(authentication)) {
-            return new JsonResponse<>(ResponseInfo.EMPLOYEE_NOT_FOUND, "登录失败");
+            return new JsonResponse<>("A0200", "用户登录异常");
         }
         String loginEmployeeJobNumber = authentication.getName();
         log.info("员工: %s 成功登录".formatted(loginEmployeeJobNumber));
@@ -55,7 +54,7 @@ public class LoginServiceImpl implements LoginService {
 
         // 生成Jwt，返回给前端
         String token = jwtUtil.generate(loginEmployeeJobNumber);
-        return new JsonResponse<>(ResponseInfo.OK, token);
+        return new JsonResponse<>(token);
     }
 
     @Override
@@ -69,6 +68,6 @@ public class LoginServiceImpl implements LoginService {
         String key = "login:" + loginEmployee.getUsername();
         redisUtil.deleteValue(key);
 
-        return new JsonResponse<>(ResponseInfo.OK, null);
+        return new JsonResponse<>();
     }
 }

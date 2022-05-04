@@ -4,14 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 /**
- * @author 孙强
  * 用于封装响应值，使其拥有固定的格式
+ *
+ * @author 孙强
  */
 @Getter
 @Setter
 public class JsonResponse<T> {
     /**
-     * 状态码
+     * 错误码，与HttpStatus无关，参考阿里Java开发手册泰山版
      */
     private String code;
 
@@ -25,15 +26,27 @@ public class JsonResponse<T> {
      */
     private T data;
 
-    public JsonResponse(ResponseInfo responseInfo) {
-        this.code = responseInfo.getCode();
-        this.message = responseInfo.getMessage();
+    public JsonResponse() {
+        this.code = "00000";
+        this.message = "OK";
         this.data = null;
     }
 
-    public JsonResponse(ResponseInfo responseInfo, T data) {
-        this.code = responseInfo.getCode();
-        this.message = responseInfo.getMessage();
+    public JsonResponse(T data) {
+        this.code = "00000";
+        this.message = "OK";
+        this.data = data;
+    }
+
+    public JsonResponse(String code, String message) {
+        this.code = code;
+        this.message = message;
+        this.data = null;
+    }
+
+    public JsonResponse(String code, String message, T data) {
+        this.code = code;
+        this.message = message;
         this.data = data;
     }
 }
