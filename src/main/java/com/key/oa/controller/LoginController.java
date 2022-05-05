@@ -31,7 +31,6 @@ public class LoginController {
 
     @PostMapping("/logout")
     public JsonResponse<Object> logout() {
-        log.info("123123");
         return loginService.logout();
     }
 }

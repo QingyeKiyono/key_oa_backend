@@ -65,8 +65,11 @@ public class LoginServiceImpl implements LoginService {
         LoginEmployee loginEmployee = (LoginEmployee) authentication.getPrincipal();
 
         // 获取key并从redis中删除
-        String key = "login:" + loginEmployee.getUsername();
+        String jobNumber = loginEmployee.getUsername();
+        String key = "login:" + jobNumber;
         redisUtil.deleteValue(key);
+
+        log.info("员工: %s 成功注销".formatted(jobNumber));
 
         return new JsonResponse<>();
     }
