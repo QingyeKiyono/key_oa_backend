@@ -30,16 +30,14 @@ INSERT INTO `employee`(id, name, identity, birthday, password, job_number, email
 VALUES (null, '冼磊', '310105196301133892', '1990-09-09', '$2b$12$HWhuM6QFEQVc.6Qu60r1KunlcHojWRK4bXUNs747sPD4NRlj.DNKS',
         '20223187', 'tao34@example.org', '13588443941', false);
 
--- 创建最初的角色类，一个是ROOT，不可用；一个是用于测试的开发角色
+-- 创建最初的角色类，一个是ROOT；一个是用于测试的开发角色
 INSERT INTO `role`(id, active, name, parent_id)
 VALUES (null, false, 'ROOT', null);
 INSERT INTO `role`(id, active, name, parent_id)
 VALUES (null, true, 'DEV', null);
+-- 添加经理角色和员工角色
 INSERT INTO `role`(id, active, name, parent_id)
-VALUES (null, true, 'test', 2);
--- 添加管理员角色和员工角色
-INSERT INTO `role`(id, active, name, parent_id)
-VALUES (null, true, 'admin', 1);
+VALUES (null, true, 'manager', 1);
 INSERT INTO `role`(id, active, name, parent_id)
 VALUES (null, true, 'employee', 4);
 
@@ -48,11 +46,73 @@ INSERT INTO `base_resource`(id, value, parent_id)
 VALUES (null, 'dev:test', null);
 INSERT INTO `base_resource`(id, value, parent_id)
 VALUES (null, 'oa:employee:list', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:employee:view', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:employee:modify', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:employee:delete', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:role:list', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:role:view', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:role:modify', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:role:delete', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:resource:list', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:resource:view', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:resource:modify', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:resource:delete', null);
 
 -- 添加员工和角色的映射信息
 INSERT INTO `role_employees`(roles_id, employees_id)
-VALUES (2, 1);
+VALUES (3, 1);
+INSERT INTO `role_employees`(roles_id, employees_id)
+VALUES (3, 2);
+INSERT INTO `role_employees`(roles_id, employees_id)
+VALUES (4, 3);
+INSERT INTO `role_employees`(roles_id, employees_id)
+VALUES (4, 4);
+INSERT INTO `role_employees`(roles_id, employees_id)
+VALUES (4, 5);
+INSERT INTO `role_employees`(roles_id, employees_id)
+VALUES (4, 6);
+INSERT INTO `role_employees`(roles_id, employees_id)
+VALUES (4, 7);
+INSERT INTO `role_employees`(roles_id, employees_id)
+VALUES (4, 8);
+INSERT INTO `role_employees`(roles_id, employees_id)
+VALUES (4, 9);
+INSERT INTO `role_employees`(roles_id, employees_id)
+VALUES (4, 10);
 
 -- 添加角色和权限的映射信息
 INSERT INTO `role_resources`(roles_id, resources_id)
-VALUES (2, 1);
+VALUES (3, 4);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (3, 5);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (3, 8);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (3, 9);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (3, 12);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (3, 13);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (4, 2);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (4, 3);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (4, 6);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (4, 7);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (4, 10);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (4, 11);

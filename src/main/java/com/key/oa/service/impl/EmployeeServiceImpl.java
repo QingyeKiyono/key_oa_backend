@@ -30,4 +30,14 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee findByJobNumber(String jobNumber) {
         return repository.findByJobNumber(jobNumber);
     }
+
+    @Override
+    public Employee update(Employee employee) {
+        return repository.save(employee);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 }

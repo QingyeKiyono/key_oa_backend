@@ -11,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 和员工相关的操作
@@ -29,7 +30,7 @@ public class EmployeeController {
     }
 
     @GetMapping("")
-    @PreAuthorize("hasAuthority('dev:test')")
+    @PreAuthorize("hasAuthority('oa:employee:list')")
     public JsonResponse<List<Employee>> getEmployeeList(@RequestParam int page, @RequestParam int size) {
         int sizeMax = 20;
 
@@ -42,8 +43,26 @@ public class EmployeeController {
     }
 
     @GetMapping("/{jobNumber}")
-    @PreAuthorize("hasAuthority('dev:test')")
+    @PreAuthorize("hasAuthority('oa:employee:view')")
     public JsonResponse<Employee> getEmployeeByJobNumber(@PathVariable String jobNumber) {
         return new JsonResponse<>(this.employeeService.findByJobNumber(jobNumber));
+    }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasAuthority('oa:employee:modify')")
+    public JsonResponse<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+        // 为了满足restful api
+        // 校验id和实际的员工id值是否相等
+        if (!Objects.equals(id, employee.getId())) {
+            throw new IllegalArgumentException();
+        }
+        return new JsonResponse<>(this.employeeService.update(employee));
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasAuthority('oa:employee:modify')")
+    public JsonResponse<Void> deleteEmployee(@PathVariable Long id) {
+        this.employeeService.deleteById(id);
+        return new JsonResponse<>();
     }
 }

@@ -23,4 +23,19 @@ public interface EmployeeService {
      * @return 对应的员工信息
      */
     Employee findByJobNumber(String jobNumber);
+
+    /**
+     * 更新员工的信息
+     *
+     * @param employee 需要更新的员工信息，要确保Id存在
+     * @return 更新后的员工信息
+     */
+    Employee update(Employee employee);
+
+    /**
+     * 根据Id删除员工信息
+     *
+     * @param id 需要删除的员工id
+     */
+    void deleteById(Long id);
 }
