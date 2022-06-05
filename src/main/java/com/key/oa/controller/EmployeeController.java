@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,8 +44,12 @@ public class EmployeeController {
     }
 
     @GetMapping("/{jobNumber}")
-    @PreAuthorize("hasAuthority('oa:employee:view')")
-    public JsonResponse<Employee> getEmployeeByJobNumber(@PathVariable String jobNumber) {
+    @PreAuthorize("hasAuthority('oa:employee:view') or hasAuthority('oa:employee:view-current')")
+    public JsonResponse<Employee> getEmployeeByJobNumber(@PathVariable String jobNumber,
+                                                         @RequestParam(required = false, defaultValue = "false") Boolean current) {
+        if (current) {
+            jobNumber = SecurityContextHolder.getContext().getAuthentication().getName();
+        }
         return new JsonResponse<>(this.employeeService.findByJobNumber(jobNumber));
     }
 

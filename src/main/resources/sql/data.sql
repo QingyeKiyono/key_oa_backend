@@ -68,6 +68,8 @@ INSERT INTO `base_resource`(id, value, parent_id)
 VALUES (null, 'oa:resource:modify', null);
 INSERT INTO `base_resource`(id, value, parent_id)
 VALUES (null, 'oa:resource:delete', null);
+INSERT INTO `base_resource`(id, value, parent_id)
+VALUES (null, 'oa:employee:view-current', null);
 
 -- 添加员工和角色的映射信息
 INSERT INTO `role_employees`(roles_id, employees_id)
@@ -116,3 +118,5 @@ INSERT INTO `role_resources`(roles_id, resources_id)
 VALUES (4, 10);
 INSERT INTO `role_resources`(roles_id, resources_id)
 VALUES (4, 11);
+INSERT INTO `role_resources`(roles_id, resources_id)
+VALUES (1, 14);
