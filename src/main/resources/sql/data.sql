@@ -39,7 +39,7 @@ VALUES (null, true, 'DEV', null);
 INSERT INTO `role`(id, active, name, parent_id)
 VALUES (null, true, 'manager', 1);
 INSERT INTO `role`(id, active, name, parent_id)
-VALUES (null, true, 'employee', 4);
+VALUES (null, true, 'employee', 3);
 
 -- 添加权限信息
 INSERT INTO `base_resource`(id, value, parent_id)
