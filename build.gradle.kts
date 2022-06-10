@@ -5,7 +5,10 @@
 plugins {
     java
     `maven-publish`
+    id("org.springframework.boot") version "2.7.0"
 }
+
+apply(plugin = "io.spring.dependency-management")
 
 repositories {
     mavenLocal()
@@ -63,4 +66,6 @@ tasks.withType<JavaCompile> {
 
 buildscript { repositories { mavenCentral() } }
 
-
+springBoot {
+    mainClass.set("com.key.oa.KeyOaBackendApplication")
+}
