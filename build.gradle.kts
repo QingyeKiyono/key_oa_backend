@@ -18,34 +18,34 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.6.7")
-    implementation("org.springframework.boot:spring-boot-starter-validation:2.6.7")
-    implementation("org.springframework.boot:spring-boot-starter-web:2.6.7")
-    implementation("org.springframework.boot:spring-boot-starter-security:2.6.7")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis:2.6.7")
-    implementation("org.springframework.boot:spring-boot-starter-aop:2.6.7")
-    implementation("org.springframework.boot:spring-boot-configuration-processor:2.6.7")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.6.7")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-security:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-aop:2.7.0")
+    implementation("org.springframework.boot:spring-boot-configuration-processor:2.7.0")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.7.0")
     compileOnly("org.projectlombok:lombok:1.18.24")
     annotationProcessor("org.projectlombok:lombok:1.18.24")
     testCompileOnly("org.projectlombok:lombok:1.18.24")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
-    implementation("com.alibaba:druid-spring-boot-starter:1.2.9")
+    implementation("com.alibaba:druid-spring-boot-starter:1.2.11")
     implementation("com.google.guava:guava:31.1-jre")
     implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("org.apache.commons:commons-pool2:2.11.1")
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-    runtimeOnly("org.springframework.boot:spring-boot-devtools:2.6.7")
+    runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.0")
     runtimeOnly("mysql:mysql-connector-java:8.0.29")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.6.7")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.0")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.6.RELEASE")
     testImplementation("org.junit.platform:junit-platform-suite-engine:1.8.2")
 
     // for jaxb
     implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
-    implementation("org.glassfish.jaxb:jaxb-runtime:3.0.2")
+    implementation("org.glassfish.jaxb:jaxb-runtime:4.0.0")
 
 }
 
