@@ -43,7 +43,7 @@ public class Role {
 
     @ManyToMany
     @ToString.Exclude
-    private Set<BaseResource> resources = new HashSet<>();
+    private Set<Resource> resources = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

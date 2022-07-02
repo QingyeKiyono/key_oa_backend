@@ -1,7 +1,7 @@
 package com.key.oa.service.impl;
 
 import com.key.oa.domain.LoginEmployee;
-import com.key.oa.entity.BaseResource;
+import com.key.oa.entity.Resource;
 import com.key.oa.entity.Employee;
 import com.key.oa.entity.Role;
 import com.key.oa.service.EmployeeService;
@@ -68,8 +68,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             return Collections.emptyList();
         }
 
-        List<BaseResource> authorities = new ArrayList<>();
+        List<Resource> authorities = new ArrayList<>();
         roles.forEach(role -> authorities.addAll(role.getResources()));
-        return authorities.stream().map(BaseResource::getValue).toList();
+        return authorities.stream().map(Resource::getValue).toList();
     }
 }
