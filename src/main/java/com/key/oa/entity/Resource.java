@@ -33,6 +33,13 @@ public class Resource {
     private String value;
 
     /**
+     * 只有页面资源拥有的属性
+     * 对应页面项展示的图标，例如：'mdi-folder'
+     */
+    @Column
+    private String icon;
+
+    /**
      * 是不是页面资源，即浏览器的url
      */
     @Column(nullable = false)

@@ -122,5 +122,5 @@ INSERT INTO `role_resources`(roles_id, resources_id)
 VALUES (1, 14);
 
 -- 添加页面资源
-INSERT INTO `resource`(id, name, page, value, parent_id)
-VALUES (null, '查看员工列表', true, '/employees', null);
+INSERT INTO `resource`(id, icon, name, page, value, parent_id)
+VALUES (null, 'mdi-account', '查看员工列表', true, '/employees', null);
