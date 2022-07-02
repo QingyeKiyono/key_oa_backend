@@ -17,6 +17,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "page"})})
 public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +26,7 @@ public class Resource {
     /**
      * 资源的名称，便于用户理解
      */
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false, unique = true)
@@ -35,7 +36,7 @@ public class Resource {
      * 是不是页面资源，即浏览器的url
      */
     @Column(nullable = false)
-    private Boolean pageResource;
+    private Boolean page;
 
     @ManyToMany(mappedBy = "resources")
     @ToString.Exclude
