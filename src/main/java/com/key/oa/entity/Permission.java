@@ -12,13 +12,11 @@ import java.util.Set;
  * 资源的基类
  */
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "page"})})
-public class Resource {
+public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,20 +30,7 @@ public class Resource {
     @Column(nullable = false, unique = true)
     private String value;
 
-    /**
-     * 只有页面资源拥有的属性
-     * 对应页面项展示的图标，例如：'mdi-folder'
-     */
-    @Column
-    private String icon;
-
-    /**
-     * 是不是页面资源，即浏览器的url
-     */
-    @Column(nullable = false)
-    private Boolean page;
-
-    @ManyToMany(mappedBy = "resources")
+    @ManyToMany(mappedBy = "permissions")
     @ToString.Exclude
     private Set<Role> roles = new HashSet<>();
 
@@ -53,18 +38,18 @@ public class Resource {
      * 这里的父子关系要求必须得删除掉所有的子角色后才能删除父角色（可以同时删除）
      */
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Resource parent;
+    private Permission parent;
 
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
-    private Set<Resource> children = new HashSet<>();
+    private Set<Permission> children = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Resource that)) {
+        if (!(o instanceof Permission that)) {
             return false;
         }
         return Objects.equal(id, that.id) && Objects.equal(value, that.value);

@@ -42,34 +42,34 @@ INSERT INTO `role`(id, active, name, parent_id)
 VALUES (null, true, 'employee', 3);
 
 -- 添加权限信息
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '测试', 'dev:test', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '查看员工列表','oa:employee:list', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '查看员工信息', 'oa:employee:view', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '修改员工信息', 'oa:employee:modify', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '删除员工信息', 'oa:employee:delete', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '查看角色列表', 'oa:role:list', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '查看角色信息', 'oa:role:view', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '修改角色信息', 'oa:role:modify', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '删除角色信息', 'oa:role:delete', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '查看资源列表', 'oa:resource:list', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '查看资源信息', 'oa:resource:view', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '修改资源信息', 'oa:resource:modify', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '删除资源信息', 'oa:resource:delete', false, null);
-INSERT INTO `resource`(id, name, value, page, parent_id)
-VALUES (null, '查看当前登录员工信息', 'oa:employee:view-current', false, null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '测试', 'dev:test', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '查看员工列表', 'oa:employee:list', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '查看员工信息', 'oa:employee:view', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '修改员工信息', 'oa:employee:modify', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '删除员工信息', 'oa:employee:delete', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '查看角色列表', 'oa:role:list', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '查看角色信息', 'oa:role:view', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '修改角色信息', 'oa:role:modify', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '删除角色信息', 'oa:role:delete', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '查看资源列表', 'oa:permission:list', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '查看资源信息', 'oa:permission:view', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '修改资源信息', 'oa:permission:modify', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '删除资源信息', 'oa:permission:delete', null);
+INSERT INTO `permission`(id, name, value, parent_id)
+VALUES (null, '查看当前登录员工信息', 'oa:employee:view-current', null);
 
 -- 添加员工和角色的映射信息
 INSERT INTO `role_employees`(roles_id, employees_id)
@@ -94,33 +94,35 @@ INSERT INTO `role_employees`(roles_id, employees_id)
 VALUES (4, 10);
 
 -- 添加角色和权限的映射信息
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (3, 4);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (3, 5);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (3, 8);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (3, 9);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (3, 12);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (3, 13);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (4, 2);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (4, 3);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (4, 6);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (4, 7);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (4, 10);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (4, 11);
-INSERT INTO `role_resources`(roles_id, resources_id)
+INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (1, 14);
 
 -- 添加页面资源
-INSERT INTO `resource`(id, icon, name, page, value, parent_id)
-VALUES (null, 'mdi-account', '查看员工列表', true, '/employees', null);
+INSERT INTO `page`(id, description, icon, url, parent_id)
+VALUES (null, '查看员工列表', 'mdi-account', '/employees', null);
+INSERT INTO `role_pages`(roles_id, pages_id)
+ VALUES (3, 1);
