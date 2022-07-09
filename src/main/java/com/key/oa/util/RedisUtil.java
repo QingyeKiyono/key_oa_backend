@@ -19,11 +19,11 @@ public class RedisUtil {
         this.redisTemplate = redisTemplate;
     }
 
-    public Boolean expire(String key, long time) {
-        return redisTemplate.expire(key, time, TimeUnit.SECONDS);
+    public Boolean setExpire(String key, long seconds) {
+        return redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
     }
 
-    public Long getTime(String key) {
+    public Long getExpire(String key) {
         return redisTemplate.getExpire(key, TimeUnit.SECONDS);
     }
 
