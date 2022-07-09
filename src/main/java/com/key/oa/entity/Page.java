@@ -30,6 +30,14 @@ public class Page {
     @Column(nullable = false)
     private String icon;
 
+    /**
+     * 表明是否是一个页面导航组的内容
+     * 如果是，那么url属性不使用，只使用其children属性
+     * 如果不是，那么其children属性不使用，只使用其URL属性
+     */
+    @Column(nullable = false)
+    private Boolean pageGroup;
+
     @ManyToMany(mappedBy = "pages")
     @ToString.Exclude
     private Set<Role> roles = new HashSet<>();

@@ -122,7 +122,7 @@ INSERT INTO `role_permissions`(roles_id, permissions_id)
 VALUES (1, 14);
 
 -- 添加页面资源
-INSERT INTO `page`(id, description, icon, url, parent_id)
-VALUES (null, '查看员工列表', 'mdi-account', '/employees', null);
+INSERT INTO `page`(id, description, page_group, icon, url, parent_id)
+VALUES (null, '查看员工列表', false, 'mdi-account', '/employees', null);
 INSERT INTO `role_pages`(roles_id, pages_id)
- VALUES (3, 1);
+VALUES (3, 1);
