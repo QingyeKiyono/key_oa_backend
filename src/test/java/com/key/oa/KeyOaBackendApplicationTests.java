@@ -8,6 +8,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 @SpringBootTest
 @Suite
 @WebAppConfiguration
-@SelectPackages({"com.key.oa.util", "com.key.oa.repository", "com.key.oa.common"})
+@SelectPackages({"com.key.oa.util",
+        "com.key.oa.repository",
+        "com.key.oa.common",
+        "com.key.oa.event"})
 class KeyOaBackendApplicationTests {
 }

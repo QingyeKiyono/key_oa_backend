@@ -1,5 +1,6 @@
 package com.key.oa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Objects;
 import lombok.*;
 
@@ -40,6 +41,7 @@ public class Page {
 
     @ManyToMany(mappedBy = "pages")
     @ToString.Exclude
+    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

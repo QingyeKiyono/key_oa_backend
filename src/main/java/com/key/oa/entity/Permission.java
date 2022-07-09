@@ -1,5 +1,6 @@
 package com.key.oa.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Objects;
 import lombok.*;
 
@@ -32,6 +33,7 @@ public class Permission {
 
     @ManyToMany(mappedBy = "permissions")
     @ToString.Exclude
+    @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     /**
