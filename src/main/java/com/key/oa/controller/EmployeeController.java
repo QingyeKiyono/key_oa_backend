@@ -65,7 +65,7 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasAuthority('oa:employee:modify')")
+    @PreAuthorize("hasAuthority('oa:employee:delete')")
     public JsonResponse<Void> deleteEmployee(@PathVariable Long id) {
         this.employeeService.deleteById(id);
         return new JsonResponse<>();
