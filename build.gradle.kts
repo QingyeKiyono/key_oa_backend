@@ -25,6 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-redis:2.7.0")
     implementation("org.springframework.boot:spring-boot-starter-aop:2.7.0")
     implementation("org.springframework.boot:spring-boot-configuration-processor:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.0")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.7.0")
     compileOnly("org.projectlombok:lombok:1.18.24")
     annotationProcessor("org.projectlombok:lombok:1.18.24")
