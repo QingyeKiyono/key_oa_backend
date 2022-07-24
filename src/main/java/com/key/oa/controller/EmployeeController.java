@@ -70,4 +70,10 @@ public class EmployeeController {
         this.employeeService.deleteById(id);
         return new JsonResponse<>();
     }
+
+    @GetMapping("/count")
+    @PreAuthorize("hasAuthority('oa:employee:list')")
+    public JsonResponse<Long> getCount() {
+        return new JsonResponse<>(employeeService.count());
+    }
 }

@@ -38,4 +38,11 @@ public interface EmployeeService {
      * @param id 需要删除的员工id
      */
     void deleteById(Long id);
+
+    /**
+     * 查看员工数量
+     *
+     * @return 所有的员工数量
+     */
+    long count();
 }

@@ -40,4 +40,9 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteById(Long id) {
         repository.deleteById(id);
     }
+
+    @Override
+    public long count() {
+        return repository.count();
+    }
 }
