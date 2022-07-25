@@ -2,6 +2,7 @@ package com.key.oa.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.Objects;
+import com.key.oa.annotation.Desensitize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,12 +31,14 @@ public class Employee {
     private String name;
 
     @Column(nullable = false)
+    @Desensitize(strategy = Desensitize.DesensitizeStrategy.PHONE)
     private String phone;
 
     @Column(nullable = false)
     private String email;
 
     @Column(nullable = false, unique = true)
+    @Desensitize(strategy = Desensitize.DesensitizeStrategy.ID_CARD)
     private String identity;
 
     @Temporal(TemporalType.DATE)
@@ -49,6 +52,7 @@ public class Employee {
     private String jobNumber;
 
     @Column(nullable = false)
+    @Desensitize(strategy = Desensitize.DesensitizeStrategy.PASSWORD)
     private String password;
 
     @Column(nullable = false)
