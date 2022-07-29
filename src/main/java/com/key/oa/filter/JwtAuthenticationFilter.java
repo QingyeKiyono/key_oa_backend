@@ -44,8 +44,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // 获取token
         String token = request.getHeader("token");
         if (StringUtils.isEmpty(token)) {
-            log.info("token is empty");
             // 这里放行是因为没有token可以解析，在后面的filter中也会无法通过
+            // 或者是Spring Boot Actuator相关的监控接口
             filterChain.doFilter(request, response);
             return;
         }
