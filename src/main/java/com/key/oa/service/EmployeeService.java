@@ -25,6 +25,14 @@ public interface EmployeeService {
     Employee findByJobNumber(String jobNumber);
 
     /**
+     * 新建员工信息
+     *
+     * @param employee 需要创建的员工信息
+     * @return 创建后的员工信息
+     */
+    Employee save(Employee employee);
+
+    /**
      * 更新员工的信息
      *
      * @param employee 需要更新的员工信息，要确保Id存在

@@ -53,6 +53,12 @@ public class EmployeeController {
         return new JsonResponse<>(this.employeeService.findByJobNumber(jobNumber));
     }
 
+    @PostMapping("/")
+    @PreAuthorize("hasAuthority('oa:employee:modify')")
+    public JsonResponse<Employee> saveEmployee(@RequestBody Employee employee) {
+        return new JsonResponse<>(employeeService.save(employee));
+    }
+
     @PutMapping("/{id}")
     @PreAuthorize("hasAuthority('oa:employee:modify')")
     public JsonResponse<Employee> updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {

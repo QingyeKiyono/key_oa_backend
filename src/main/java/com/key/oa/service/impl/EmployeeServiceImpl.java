@@ -6,6 +6,7 @@ import com.key.oa.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -29,6 +30,15 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findByJobNumber(String jobNumber) {
         return repository.findByJobNumber(jobNumber);
+    }
+
+    @Override
+    public Employee save(Employee employee) {
+        // 对密码进行加密，初始密码是1234
+        employee.setPassword(new BCryptPasswordEncoder().encode("1234"));
+        // 新建员工要设置成“未激活”状态
+        employee.setVerified(false);
+        return repository.save(employee);
     }
 
     @Override
