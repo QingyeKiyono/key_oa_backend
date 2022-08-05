@@ -18,15 +18,15 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.0")
-    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.0")
-    implementation("org.springframework.boot:spring-boot-starter-web:2.7.0")
-    implementation("org.springframework.boot:spring-boot-starter-security:2.7.0")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis:2.7.0")
-    implementation("org.springframework.boot:spring-boot-starter-aop:2.7.0")
-    implementation("org.springframework.boot:spring-boot-configuration-processor:2.7.0")
-    implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.0")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-security:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-aop:2.7.2")
+    implementation("org.springframework.boot:spring-boot-configuration-processor:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.2")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.7.2")
     compileOnly("org.projectlombok:lombok:1.18.24")
     annotationProcessor("org.projectlombok:lombok:1.18.24")
     testCompileOnly("org.projectlombok:lombok:1.18.24")
@@ -36,13 +36,13 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("org.apache.commons:commons-pool2:2.11.1")
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-    runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.0")
+    runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.2")
     runtimeOnly("mysql:mysql-connector-java:8.0.29")
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.0")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.2")
     testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.6.RELEASE")
-    testImplementation("org.junit.platform:junit-platform-suite-engine:1.8.2")
+    testImplementation("org.junit.platform:junit-platform-suite-engine:1.9.0")
 
     // for jaxb
     implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
@@ -54,6 +54,7 @@ group = "com.key"
 version = "0.0.1-SNAPSHOT"
 description = "KeyOA-backend"
 java.sourceCompatibility = JavaVersion.VERSION_17
+java.targetCompatibility = JavaVersion.VERSION_17
 
 publishing {
     publications.create<MavenPublication>("maven") {
