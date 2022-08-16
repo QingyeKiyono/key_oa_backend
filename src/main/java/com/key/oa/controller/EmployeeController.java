@@ -77,6 +77,13 @@ public class EmployeeController {
         return new JsonResponse<>();
     }
 
+    @PostMapping("/:deleteBatch")
+    @PreAuthorize("hasAuthority('oa:employee:delete')")
+    public JsonResponse<Void> deleteEmployeeBatch(@RequestBody List<String> jobNumberList) {
+        employeeService.deleteBatch(jobNumberList);
+        return new JsonResponse<>();
+    }
+
     @GetMapping("/count")
     @PreAuthorize("hasAuthority('oa:employee:list')")
     public JsonResponse<Long> getCount() {

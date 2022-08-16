@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @author 孙强
  * 员工类的Repository
@@ -18,4 +20,12 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>, JpaSp
      * @return 查找到的员工信息
      */
     Employee findByJobNumber(String jobNumber);
+
+    /**
+     * 根据工号查找员工
+     *
+     * @param jobNumberList 员工工号列表
+     * @return 找到的员工列表
+     */
+    List<Employee> findAllByJobNumberIn(List<String> jobNumberList);
 }

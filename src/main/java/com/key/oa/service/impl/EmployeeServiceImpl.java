@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author 孙强
@@ -54,5 +57,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public long count() {
         return repository.count();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void deleteBatch(List<String> jobNumberList) {
+        List<Employee> employeeList = repository.findAllByJobNumberIn(jobNumberList);
+        repository.deleteAllInBatch(employeeList);
     }
 }

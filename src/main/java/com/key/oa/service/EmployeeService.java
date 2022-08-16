@@ -4,6 +4,8 @@ import com.key.oa.entity.Employee;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 /**
  * @author 孙强
  */
@@ -53,4 +55,11 @@ public interface EmployeeService {
      * @return 所有的员工数量
      */
     long count();
+
+    /**
+     * 删除一批员工
+     *
+     * @param jobNumberList 删除的员工工号列表
+     */
+    void deleteBatch(List<String> jobNumberList);
 }
