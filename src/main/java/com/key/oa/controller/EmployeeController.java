@@ -30,7 +30,7 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping("")
+    @GetMapping("/")
     @PreAuthorize("hasAuthority('oa:employee:list')")
     public JsonResponse<List<Employee>> getEmployeeList(@RequestParam int page, @RequestParam int size) {
         int sizeMax = 20;
