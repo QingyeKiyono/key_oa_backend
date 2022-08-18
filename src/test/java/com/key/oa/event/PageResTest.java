@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PageTest {
+public class PageResTest {
     private final MockMvc mockMvc;
 
     private final ObjectMapper mapper;
@@ -29,7 +29,7 @@ public class PageTest {
     private static String token;
 
     @Autowired
-    public PageTest(MockMvc mockMvc, ObjectMapper mapper) {
+    public PageResTest(MockMvc mockMvc, ObjectMapper mapper) {
         this.mockMvc = mockMvc;
         this.mapper = mapper;
     }

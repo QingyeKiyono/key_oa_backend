@@ -17,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Page {
+public class PageRes {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,27 +39,27 @@ public class Page {
     @Column(nullable = false)
     private Boolean pageGroup;
 
-    @ManyToMany(mappedBy = "pages")
+    @ManyToMany(mappedBy = "pageRes")
     @ToString.Exclude
     @JsonIgnore
     private Set<Role> roles = new HashSet<>();
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Page parent;
+    private PageRes parent;
 
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
-    private Set<Page> children = new HashSet<>();
+    private Set<PageRes> children = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
-        if (!(o instanceof Page page)) {
+        if (!(o instanceof PageRes pageRes)) {
             return false;
         }
-        return Objects.equal(getId(), page.getId()) && Objects.equal(getUrl(), page.getUrl()) && Objects.equal(getDescription(), page.getDescription()) && Objects.equal(getIcon(), page.getIcon()) && Objects.equal(getParent(), page.getParent());
+        return Objects.equal(getId(), pageRes.getId()) && Objects.equal(getUrl(), pageRes.getUrl()) && Objects.equal(getDescription(), pageRes.getDescription()) && Objects.equal(getIcon(), pageRes.getIcon()) && Objects.equal(getParent(), pageRes.getParent());
     }
 
     @Override

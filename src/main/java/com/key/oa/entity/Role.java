@@ -47,7 +47,7 @@ public class Role {
 
     @ManyToMany
     @ToString.Exclude
-    private Set<Page> pages = new HashSet<>();
+    private Set<PageRes> pageRes = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

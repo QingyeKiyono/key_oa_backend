@@ -1,10 +1,10 @@
 package com.key.oa.service.impl;
 
 import com.key.oa.entity.Employee;
-import com.key.oa.entity.Page;
+import com.key.oa.entity.PageRes;
 import com.key.oa.entity.Role;
 import com.key.oa.service.EmployeeService;
-import com.key.oa.service.PageService;
+import com.key.oa.service.PageResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -16,23 +16,23 @@ import java.util.Set;
  * @author 孙强
  */
 @Service
-public class PageServiceImpl implements PageService {
+public class PageResResServiceImpl implements PageResService {
     private final EmployeeService employeeService;
 
     @Autowired
-    public PageServiceImpl(EmployeeService employeeService) {
+    public PageResResServiceImpl(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
     @Override
-    public Set<Page> getPagesOfCurrentUser() {
-        Set<Page> pages = new HashSet<>(10);
+    public Set<PageRes> getPageResOfCurrentUser() {
+        Set<PageRes> pageRes = new HashSet<>(10);
 
         String jobNumber = SecurityContextHolder.getContext().getAuthentication().getName();
         Employee employee = employeeService.findByJobNumber(jobNumber);
         for (Role role : employee.getRoles()) {
-            pages.addAll(role.getPages());
+            pageRes.addAll(role.getPageRes());
         }
-        return pages;
+        return pageRes;
     }
 }

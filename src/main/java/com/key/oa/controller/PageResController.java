@@ -1,8 +1,8 @@
 package com.key.oa.controller;
 
 import com.key.oa.common.JsonResponse;
-import com.key.oa.entity.Page;
-import com.key.oa.service.PageService;
+import com.key.oa.entity.PageRes;
+import com.key.oa.service.PageResService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,17 +16,17 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/pages")
-public class PageController {
-    private final PageService pageService;
+public class PageResController {
+    private final PageResService pageResService;
 
     @Autowired
-    public PageController(PageService pageService) {
-        this.pageService = pageService;
+    public PageResController(PageResService pageResService) {
+        this.pageResService = pageResService;
     }
 
     @GetMapping("/current")
     @PreAuthorize("isAuthenticated()")
-    public JsonResponse<Set<Page>> getPagesOfCurrentUser() {
-        return new JsonResponse<>(pageService.getPagesOfCurrentUser());
+    public JsonResponse<Set<PageRes>> getPagesOfCurrentUser() {
+        return new JsonResponse<>(pageResService.getPageResOfCurrentUser());
     }
 }
