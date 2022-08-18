@@ -18,36 +18,44 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.2")
-    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.2")
+    // Spring projects
+    // Starters
     implementation("org.springframework.boot:spring-boot-starter-web:2.7.2")
-    implementation("org.springframework.boot:spring-boot-starter-security:2.7.2")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.2")
     implementation("org.springframework.boot:spring-boot-starter-aop:2.7.2")
-    implementation("org.springframework.boot:spring-boot-configuration-processor:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-security:2.7.2")
     implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.2")
+    // Starters - test
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.2")
+    // Other spring dependencies
+    implementation("org.springframework.boot:spring-boot-configuration-processor:2.7.2")
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.7.2")
+    runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.2")
+
+    // Development tools
+    // Lombok
     compileOnly("org.projectlombok:lombok:1.18.24")
     annotationProcessor("org.projectlombok:lombok:1.18.24")
     testCompileOnly("org.projectlombok:lombok:1.18.24")
     testAnnotationProcessor("org.projectlombok:lombok:1.18.24")
-    implementation("com.alibaba:druid-spring-boot-starter:1.2.11")
+    // Guava and Apache commons
     implementation("com.google.guava:guava:31.1-jre")
     implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("org.apache.commons:commons-pool2:2.11.1")
-    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-    runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.2")
-    runtimeOnly("mysql:mysql-connector-java:8.0.29")
+    // Jwt dependency
     runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.2")
-    testImplementation("org.springframework.restdocs:spring-restdocs-mockmvc:2.0.6.RELEASE")
-    testImplementation("org.junit.platform:junit-platform-suite-engine:1.9.0")
 
-    // for jaxb
+    // Drivers and Data access
+    runtimeOnly("mysql:mysql-connector-java:8.0.30")
+    implementation("com.alibaba:druid-spring-boot-starter:1.2.11")
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+
+    // Jaxb
     implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
     implementation("org.glassfish.jaxb:jaxb-runtime:4.0.0")
-
 }
 
 group = "com.key"
