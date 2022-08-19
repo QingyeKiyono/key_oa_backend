@@ -39,4 +39,10 @@ public class JwtUtilTest {
         Assert.isTrue(Objects.equals(parsedClaims.get("1"), 1),
                 "Claim parsed not equal to the original one.");
     }
+
+    @Test
+    public void testSalt() {
+        Assert.isTrue("1Jvq2wYsh3B2Ex9UZlNwNUMpbCILbvQt".equals(jwtUtil.getSalt()),
+                "Salt not match!");
+    }
 }
