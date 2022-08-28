@@ -1,5 +1,6 @@
 package com.key.oa.service.impl;
 
+import com.key.oa.common.BadCredentialsMessage;
 import com.key.oa.common.JsonResponse;
 import com.key.oa.domain.LoginEmployee;
 import com.key.oa.dto.LoginDTO;
@@ -9,6 +10,7 @@ import com.key.oa.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -62,6 +64,9 @@ public class LoginServiceImpl implements LoginService {
         // 获取当前登录的员工信息
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken)
                 SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            throw new BadCredentialsException(BadCredentialsMessage.TOKEN_NOT_FOUND);
+        }
         LoginEmployee loginEmployee = (LoginEmployee) authentication.getPrincipal();
 
         // 获取key并从redis中删除

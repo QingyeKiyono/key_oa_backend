@@ -1,6 +1,9 @@
 package com.key.oa.config;
 
+import com.key.oa.common.BadCredentialsMessage;
 import com.key.oa.common.JsonResponse;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.MalformedJwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +30,31 @@ public class CustomControllerAdvice {
 
     @ExceptionHandler
     public ResponseEntity<JsonResponse<Void>> badCredentialsExceptionHandler(BadCredentialsException exception) {
-        // 目前只有密码错误这一个选项，暂时不需要考虑exception的message
-        log.error("Password wrong: ", exception);
+        JsonResponse<Void> response;
 
-        JsonResponse<Void> response = new JsonResponse<>("A0210", "用户密码错误");
+        // 目前只有密码错误这一个选项，暂时不需要考虑exception的message
+        if (BadCredentialsMessage.PASSWORD_WRONG.equals(exception.getMessage())) {
+            response = new JsonResponse<>("A0210", "用户密码错误");
+        } else if (BadCredentialsMessage.TOKEN_NOT_FOUND.equals(exception.getMessage())) {
+            response = new JsonResponse<>("A0301", "访问未授权");
+        } else {
+            response = new JsonResponse<>("A0300", "访问权限异常");
+        }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler(MalformedJwtException.class)
+    public ResponseEntity<JsonResponse<Void>> malformedJwtExceptionHandler(MalformedJwtException exception) {
+        log.info(exception.getMessage());
+        JsonResponse<Void> response = new JsonResponse<>("A0403", "Token非法");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    public ResponseEntity<JsonResponse<Void>> expiredJwtExceptionHandler(ExpiredJwtException exception) {
+        log.info(exception.getMessage());
+        JsonResponse<Void> response = new JsonResponse<>("A0404", "Token已过期");
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)

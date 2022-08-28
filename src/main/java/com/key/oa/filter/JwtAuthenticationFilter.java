@@ -11,6 +11,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 
 import javax.annotation.Nonnull;
 import javax.servlet.FilterChain;
@@ -31,10 +32,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final RedisUtil redisUtil;
 
+    private final HandlerExceptionResolver resolver;
+
     @Autowired
-    public JwtAuthenticationFilter(JwtUtil jwtUtil, RedisUtil redisUtil) {
+    public JwtAuthenticationFilter(JwtUtil jwtUtil, RedisUtil redisUtil, HandlerExceptionResolver handlerExceptionResolver) {
         this.jwtUtil = jwtUtil;
         this.redisUtil = redisUtil;
+        this.resolver = handlerExceptionResolver;
     }
 
     @Override
@@ -56,8 +60,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             Claims claims = jwtUtil.parse(token);
             jobNumber = claims.getSubject();
         } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Token非法");
+            resolver.resolveException(request, response, null, e);
+            return;
         }
 
         // 从redis中获取用户信息
