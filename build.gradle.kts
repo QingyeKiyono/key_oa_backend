@@ -5,7 +5,7 @@
 plugins {
     java
     `maven-publish`
-    id("org.springframework.boot") version "2.7.0"
+    id("org.springframework.boot") version "2.7.3"
 }
 
 apply(plugin = "io.spring.dependency-management")
@@ -20,19 +20,19 @@ repositories {
 dependencies {
     // Spring projects
     // Starters
-    implementation("org.springframework.boot:spring-boot-starter-web:2.7.2")
-    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.2")
-    implementation("org.springframework.boot:spring-boot-starter-aop:2.7.2")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.2")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis:2.7.2")
-    implementation("org.springframework.boot:spring-boot-starter-security:2.7.2")
-    implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.2")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-aop:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-security:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.3")
     // Starters - test
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.2")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
     // Other spring dependencies
-    implementation("org.springframework.boot:spring-boot-configuration-processor:2.7.2")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.7.2")
-    runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.2")
+    implementation("org.springframework.boot:spring-boot-configuration-processor:2.7.3")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.7.3")
+    runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.3")
 
     // Development tools
     // Lombok
