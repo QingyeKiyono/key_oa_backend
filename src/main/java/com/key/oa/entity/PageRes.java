@@ -22,7 +22,7 @@ public class PageRes {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String url;
 
     @Column(nullable = false)
@@ -48,6 +48,7 @@ public class PageRes {
     private PageRes parent;
 
     @ToString.Exclude
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "parent")
     private Set<PageRes> children = new HashSet<>();
 

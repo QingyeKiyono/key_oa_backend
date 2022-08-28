@@ -34,7 +34,7 @@ public class Employee {
     @Desensitize(strategy = Desensitize.DesensitizeStrategy.PHONE)
     private String phone;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false, unique = true)

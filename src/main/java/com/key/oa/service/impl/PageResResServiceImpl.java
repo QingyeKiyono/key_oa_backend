@@ -3,9 +3,12 @@ package com.key.oa.service.impl;
 import com.key.oa.entity.Employee;
 import com.key.oa.entity.PageRes;
 import com.key.oa.entity.Role;
+import com.key.oa.repository.PageResRepository;
 import com.key.oa.service.EmployeeService;
 import com.key.oa.service.PageResService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -19,9 +22,12 @@ import java.util.Set;
 public class PageResResServiceImpl implements PageResService {
     private final EmployeeService employeeService;
 
+    private final PageResRepository repository;
+
     @Autowired
-    public PageResResServiceImpl(EmployeeService employeeService) {
+    public PageResResServiceImpl(EmployeeService employeeService, PageResRepository pageResRepository) {
         this.employeeService = employeeService;
+        this.repository = pageResRepository;
     }
 
     @Override
@@ -34,5 +40,10 @@ public class PageResResServiceImpl implements PageResService {
             pageRes.addAll(role.getPageRes());
         }
         return pageRes;
+    }
+
+    @Override
+    public Page<PageRes> findAll(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }
