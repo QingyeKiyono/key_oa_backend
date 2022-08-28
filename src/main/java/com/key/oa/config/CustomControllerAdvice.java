@@ -4,6 +4,7 @@ import com.key.oa.common.JsonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -21,6 +22,15 @@ public class CustomControllerAdvice {
         log.error("Username not found: ", exception);
 
         JsonResponse<Void> response = new JsonResponse<>("A0201", "用户账户不存在");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
+
+    @ExceptionHandler
+    public ResponseEntity<JsonResponse<Void>> badCredentialsExceptionHandler(BadCredentialsException exception) {
+        // 目前只有密码错误这一个选项，暂时不需要考虑exception的message
+        log.error("Password wrong: ", exception);
+
+        JsonResponse<Void> response = new JsonResponse<>("A0210", "用户密码错误");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
