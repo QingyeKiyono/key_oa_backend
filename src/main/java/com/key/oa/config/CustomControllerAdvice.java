@@ -28,7 +28,7 @@ public class CustomControllerAdvice {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
-    @ExceptionHandler
+    @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<JsonResponse<Void>> badCredentialsExceptionHandler(BadCredentialsException exception) {
         JsonResponse<Void> response;
 
