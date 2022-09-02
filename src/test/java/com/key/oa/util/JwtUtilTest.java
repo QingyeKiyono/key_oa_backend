@@ -1,17 +1,16 @@
 package com.key.oa.util;
 
 import io.jsonwebtoken.Claims;
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 @SpringBootTest
-public class JwtUtilTest {
+public class JwtUtilTest implements WithAssertions {
     private final JwtUtil jwtUtil;
 
     @Autowired
@@ -23,11 +22,16 @@ public class JwtUtilTest {
     public void testGenerate() {
         // 测试是否能够生成token
         String token1 = this.jwtUtil.generate("123");
-        Assert.hasLength(token1, "Generate failed!");
+        assertThat(token1)
+                .as("Generating a token.")
+                .isNotEmpty();
 
         // 任意两次生成的token都应当不同
-        String token3 = this.jwtUtil.generate("456");
-        Assert.isTrue(!Objects.equals(token1, token3), "Generated token equal!");
+        String token2 = this.jwtUtil.generate("123");
+        assertThat(token1)
+                .as("Comparing two tokens with the same subject.")
+                .isNotEqualTo(token2)
+                .isNotEmpty();
     }
 
     @Test
@@ -36,13 +40,15 @@ public class JwtUtilTest {
         claims.put("1", 1);
         String token = this.jwtUtil.generateWithClaims("123", claims);
         Claims parsedClaims = this.jwtUtil.parse(token);
-        Assert.isTrue(Objects.equals(parsedClaims.get("1"), 1),
-                "Claim parsed not equal to the original one.");
+        assertThat(parsedClaims.get("1"))
+                .as("Checking claim.")
+                .isEqualTo(1);
     }
 
     @Test
     public void testSalt() {
-        Assert.isTrue("1Jvq2wYsh3B2Ex9UZlNwNUMpbCILbvQt".equals(jwtUtil.getSalt()),
-                "Salt not match!");
+        assertThat(jwtUtil.getSalt())
+                .as("Checking salt value.")
+                .isEqualTo("1Jvq2wYsh3B2Ex9UZlNwNUMpbCILbvQt");
     }
 }

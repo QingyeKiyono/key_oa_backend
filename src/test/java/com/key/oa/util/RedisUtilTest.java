@@ -1,13 +1,13 @@
 package com.key.oa.util;
 
+import org.assertj.core.api.WithAssertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.util.Assert;
 
 @SpringBootTest
-public class RedisUtilTest {
+public class RedisUtilTest implements WithAssertions {
     private final RedisUtil redisUtil;
 
     private static final String KEY = "key";
@@ -22,25 +22,31 @@ public class RedisUtilTest {
     @AfterEach
     public void afterEach() {
         redisUtil.deleteValue(KEY);
-        System.out.println("before each");
     }
 
     @Test
     public void testSetAndGetValue() {
         redisUtil.setKeyValue(KEY, VALUE);
         String value = (String) this.redisUtil.getValue(KEY);
-        Assert.isTrue(VALUE.equals(value), "Get and set value not equal!");
+        assertThat(value)
+                .as("Getting and setting redis value.")
+                .isEqualTo(VALUE);
     }
 
     @Test
     public void testExpire() throws InterruptedException {
         redisUtil.setKeyValue(KEY, VALUE);
         long time = 2L;
-        Assert.isTrue(redisUtil.setExpire(KEY, time), "Cannot set expire time!");
+        assertThat(redisUtil.setExpire(KEY, time))
+                .as("Setting expire.")
+                .isTrue();
         Thread.sleep(1000);
-        Assert.isTrue(redisUtil.getExpire(KEY) < time, "Key expire time not right!");
+        assertThat(redisUtil.getExpire(KEY))
+                .as("Checking time before key expires.")
+                .isLessThan(time);
         Thread.sleep(1000);
-        Assert.isTrue(redisUtil.getValue(KEY) == null,
-                "Key doesn't expire as expected!");
+        assertThat(redisUtil.getValue(KEY))
+                .as("Getting value after it expires.")
+                .isNull();
     }
 }
