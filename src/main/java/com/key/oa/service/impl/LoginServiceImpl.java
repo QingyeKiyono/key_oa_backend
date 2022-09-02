@@ -45,7 +45,7 @@ public class LoginServiceImpl implements LoginService {
                         loginDTO.getJobNumber(), loginDTO.getPassword()));
         // 如果认证没通过，给出对应提示
         if (Objects.isNull(authentication)) {
-            return new JsonResponse<>("A0200", "用户登录异常");
+            return JsonResponse.error("A0200", "用户登录异常");
         }
         String loginEmployeeJobNumber = authentication.getName();
         log.info("员工: %s 成功登录".formatted(loginEmployeeJobNumber));
@@ -56,11 +56,11 @@ public class LoginServiceImpl implements LoginService {
 
         // 生成Jwt，返回给前端
         String token = jwtUtil.generate(loginEmployeeJobNumber);
-        return new JsonResponse<>(token);
+        return JsonResponse.success(token);
     }
 
     @Override
-    public JsonResponse<Object> logout() {
+    public JsonResponse<Void> logout() {
         // 获取当前登录的员工信息
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken)
                 SecurityContextHolder.getContext().getAuthentication();
@@ -76,6 +76,6 @@ public class LoginServiceImpl implements LoginService {
 
         log.info("员工: %s 成功注销".formatted(jobNumber));
 
-        return new JsonResponse<>();
+        return JsonResponse.success();
     }
 }

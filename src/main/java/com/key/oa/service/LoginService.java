@@ -21,5 +21,5 @@ public interface LoginService {
      *
      * @return 成功退出登录
      */
-    JsonResponse<Object> logout();
+    JsonResponse<Void> logout();
 }

@@ -30,7 +30,7 @@ public class LoginController {
     }
 
     @PostMapping("/logout")
-    public JsonResponse<Object> logout() {
+    public JsonResponse<Void> logout() {
         return loginService.logout();
     }
 }
