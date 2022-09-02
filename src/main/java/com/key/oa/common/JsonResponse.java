@@ -26,27 +26,6 @@ public class JsonResponse<T> {
      */
     private T data;
 
-    @Deprecated
-    public JsonResponse() {
-        this.code = "00000";
-        this.message = "OK";
-        this.data = null;
-    }
-
-    @Deprecated
-    public JsonResponse(T data) {
-        this.code = "00000";
-        this.message = "OK";
-        this.data = data;
-    }
-
-    @Deprecated
-    public JsonResponse(String code, String message) {
-        this.code = code;
-        this.message = message;
-        this.data = null;
-    }
-
     private JsonResponse(String code, String message, T data) {
         this.code = code;
         this.message = message;

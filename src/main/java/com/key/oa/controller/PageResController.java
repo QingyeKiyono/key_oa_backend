@@ -31,7 +31,7 @@ public class PageResController {
     @GetMapping("/current")
     @PreAuthorize("isAuthenticated()")
     public JsonResponse<Set<PageRes>> getPagesOfCurrentUser() {
-        return new JsonResponse<>(pageResService.getPageResOfCurrentUser());
+        return JsonResponse.success(pageResService.getPageResOfCurrentUser());
     }
 
     @GetMapping("/")
@@ -43,6 +43,6 @@ public class PageResController {
         }
 
         Page<PageRes> employees = this.pageResService.findAll(PageRequest.of(page - 1, size));
-        return new JsonResponse<>(employees.toList());
+        return JsonResponse.success(employees.toList());
     }
 }

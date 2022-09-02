@@ -40,7 +40,7 @@ public class EmployeeController {
         }
 
         Page<Employee> employees = this.employeeService.findAll(PageRequest.of(page - 1, size));
-        return new JsonResponse<>(employees.stream().toList());
+        return JsonResponse.success(employees.stream().toList());
     }
 
     @GetMapping("/{jobNumber}")
@@ -50,13 +50,13 @@ public class EmployeeController {
         if (current) {
             jobNumber = SecurityContextHolder.getContext().getAuthentication().getName();
         }
-        return new JsonResponse<>(this.employeeService.findByJobNumber(jobNumber));
+        return JsonResponse.success(this.employeeService.findByJobNumber(jobNumber));
     }
 
     @PostMapping("/")
     @PreAuthorize("hasAuthority('oa:employee:modify')")
     public JsonResponse<Employee> saveEmployee(@RequestBody Employee employee) {
-        return new JsonResponse<>(employeeService.save(employee));
+        return JsonResponse.success(employeeService.save(employee));
     }
 
     @PutMapping("/{id}")
@@ -67,26 +67,26 @@ public class EmployeeController {
         if (!Objects.equals(id, employee.getId())) {
             throw new IllegalArgumentException();
         }
-        return new JsonResponse<>(this.employeeService.update(employee));
+        return JsonResponse.success(this.employeeService.update(employee));
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('oa:employee:delete')")
     public JsonResponse<Void> deleteEmployee(@PathVariable Long id) {
         this.employeeService.deleteById(id);
-        return new JsonResponse<>();
+        return JsonResponse.success();
     }
 
     @PostMapping("/:deleteBatch")
     @PreAuthorize("hasAuthority('oa:employee:delete')")
     public JsonResponse<Void> deleteEmployeeBatch(@RequestBody List<String> jobNumberList) {
         employeeService.deleteBatch(jobNumberList);
-        return new JsonResponse<>();
+        return JsonResponse.success();
     }
 
     @GetMapping("/count")
     @PreAuthorize("hasAuthority('oa:employee:list')")
     public JsonResponse<Long> getCount() {
-        return new JsonResponse<>(employeeService.count());
+        return JsonResponse.success(employeeService.count());
     }
 }
