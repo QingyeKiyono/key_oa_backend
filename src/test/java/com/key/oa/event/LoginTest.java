@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.nio.charset.StandardCharsets;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class LoginTest {
@@ -48,6 +50,40 @@ public class LoginTest {
                     token = mapper.readValue(content, new TypeReference<JsonResponse<String>>() {
                     }).getData();
                 });
+    }
+
+    @Test
+    public void testUsernameNotFound() throws Exception {
+        LoginDTO loginDTO = new LoginDTO("12341234", "1234");
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(loginDTO))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding(StandardCharsets.UTF_8))
+                .andExpect(MockMvcResultMatchers
+                        .jsonPath("$.code").value("A0201"))
+                .andExpect(MockMvcResultMatchers
+                        .jsonPath("$.message").value("用户账户不存在"))
+                .andExpect(MockMvcResultMatchers
+                        .jsonPath("$.data").isEmpty());
+    }
+
+    @Test
+    public void testPasswordWrong() throws Exception {
+        LoginDTO loginDTO = new LoginDTO("20221390", "12341");
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(loginDTO))
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding(StandardCharsets.UTF_8))
+                .andExpect(MockMvcResultMatchers
+                        .jsonPath("$.code").value("A0210"))
+                .andExpect(MockMvcResultMatchers
+                        .jsonPath("$.message").value("用户密码错误"))
+                .andExpect(MockMvcResultMatchers
+                        .jsonPath("$.data").isEmpty());
     }
 
     @Test
