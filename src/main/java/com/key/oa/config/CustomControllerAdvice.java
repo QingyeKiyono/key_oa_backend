@@ -22,7 +22,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class CustomControllerAdvice {
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<JsonResponse<Void>> usernameNotFountExceptionHandler(UsernameNotFoundException exception) {
-        log.error("Username not found: ", exception);
+        if (log.isInfoEnabled()) {
+            log.info("Username not found: ", exception);
+        }
 
         JsonResponse<Void> response = JsonResponse.error("A0201", "用户账户不存在");
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
@@ -32,12 +34,23 @@ public class CustomControllerAdvice {
     public ResponseEntity<JsonResponse<Void>> badCredentialsExceptionHandler(BadCredentialsException exception) {
         JsonResponse<Void> response;
 
-        // 目前只有密码错误这一个选项，暂时不需要考虑exception的message
         if (BadCredentialsMessage.PASSWORD_WRONG.equals(exception.getMessage())) {
+            if (log.isInfoEnabled()) {
+                log.info("Password wrong.");
+            }
+
             response = JsonResponse.error("A0210", "用户密码错误");
         } else if (BadCredentialsMessage.TOKEN_NOT_FOUND.equals(exception.getMessage())) {
+            if (log.isInfoEnabled()) {
+                log.info("Token not found.");
+            }
+
             response = JsonResponse.error("A0301", "访问未授权");
         } else {
+            if (log.isInfoEnabled()) {
+                log.info("Request unauthorized.");
+            }
+
             response = JsonResponse.error("A0300", "访问权限异常");
         }
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
@@ -45,21 +58,29 @@ public class CustomControllerAdvice {
 
     @ExceptionHandler(MalformedJwtException.class)
     public ResponseEntity<JsonResponse<Void>> malformedJwtExceptionHandler(MalformedJwtException exception) {
-        log.info(exception.getMessage());
+        if (log.isInfoEnabled()) {
+            log.info("Token is malformed: {}.", exception.getMessage());
+        }
+
         JsonResponse<Void> response = JsonResponse.error("A0403", "Token非法");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @ExceptionHandler(ExpiredJwtException.class)
     public ResponseEntity<JsonResponse<Void>> expiredJwtExceptionHandler(ExpiredJwtException exception) {
-        log.info(exception.getMessage());
+        if (log.isInfoEnabled()) {
+            log.info("Token expired: {}.", exception.getMessage());
+        }
+
         JsonResponse<Void> response = JsonResponse.error("A0404", "Token已过期");
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<JsonResponse<Void>> illegalArgumentExceptionHandler(IllegalArgumentException exception) {
-        log.error("Illegal argument: ", exception);
+        if (log.isInfoEnabled()) {
+            log.info("Request argument is illegal: {}.", exception.getMessage());
+        }
 
         JsonResponse<Void> response = JsonResponse.error("A0402", "无效的用户输入");
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);

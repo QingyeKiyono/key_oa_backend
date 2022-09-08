@@ -48,7 +48,9 @@ public class LoginServiceImpl implements LoginService {
             return JsonResponse.error("A0200", "用户登录异常");
         }
         String loginEmployeeJobNumber = authentication.getName();
-        log.info("员工: %s 成功登录".formatted(loginEmployeeJobNumber));
+        if (log.isInfoEnabled()) {
+            log.info("Employee: {} successfully logged in.", loginEmployeeJobNumber);
+        }
 
         // 将登陆信息存入redis
         LoginEmployee loginEmployee = (LoginEmployee) authentication.getPrincipal();
@@ -74,7 +76,9 @@ public class LoginServiceImpl implements LoginService {
         String key = "login:" + jobNumber;
         redisUtil.deleteValue(key);
 
-        log.info("员工: %s 成功注销".formatted(jobNumber));
+        if (log.isInfoEnabled()) {
+            log.info("Employee: {} successfully logged out.", jobNumber);
+        }
 
         return JsonResponse.success();
     }
