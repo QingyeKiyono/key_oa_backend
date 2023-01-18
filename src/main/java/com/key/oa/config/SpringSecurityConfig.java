@@ -41,21 +41,21 @@ public class SpringSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        // 覆盖掉原有的logout接口，否则会自动重定向而无法正常完成功能
+        http.logout().logoutUrl("/defaultLogout");
+        http.authorizeHttpRequests().requestMatchers("defaultLogout");
+
         http
                 // 取消csrf限制，之后可能会引起安全问题
                 .csrf().disable()
                 // 不通过Session获取SecurityContext
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeHttpRequests()
                 // 登录接口允许匿名访问
-                .antMatchers("/login").anonymous()
+                .requestMatchers("/login").anonymous()
                 // 其余接口都需要登录后访问
                 .anyRequest().authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-
-        // 覆盖掉原有的logout接口，否则会自动重定向而无法正常完成功能
-        http.logout().logoutUrl("/defaultLogout");
-        http.antMatcher("/defaultLogout");
         return http.build();
     }
 

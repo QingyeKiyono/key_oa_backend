@@ -5,34 +5,56 @@
 plugins {
     java
     `maven-publish`
-    id("org.springframework.boot") version "2.7.3"
+    id("org.springframework.boot") version "3.0.1"
 }
 
 apply(plugin = "io.spring.dependency-management")
 
 repositories {
-    mavenLocal()
     maven {
-        url = uri("https://repo.maven.apache.org/maven2/")
+        url = uri("https://maven.aliyun.com/repository/public/")
     }
+    maven {
+        url = uri("https://maven.aliyun.com/repository/central")
+    }
+    maven {
+        url = uri("https://maven.aliyun.com/repository/google")
+    }
+    maven {
+        url = uri("https://maven.aliyun.com/repository/gradle-plugin")
+    }
+    maven {
+        url = uri("https://maven.aliyun.com/repository/spring")
+    }
+    maven {
+        url = uri("https://maven.aliyun.com/repository/spring-plugin")
+    }
+    maven {
+        url = uri("https://maven.aliyun.com/repository/grails-core")
+    }
+    maven {
+        url = uri("https://maven.aliyun.com/repository/apache-snapshots")
+    }
+    mavenLocal()
+    mavenCentral()
 }
 
 dependencies {
     // Spring projects
     // Starters
-    implementation("org.springframework.boot:spring-boot-starter-web:2.7.3")
-    implementation("org.springframework.boot:spring-boot-starter-validation:2.7.3")
-    implementation("org.springframework.boot:spring-boot-starter-aop:2.7.3")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.3")
-    implementation("org.springframework.boot:spring-boot-starter-data-redis:2.7.3")
-    implementation("org.springframework.boot:spring-boot-starter-security:2.7.3")
-    implementation("org.springframework.boot:spring-boot-starter-actuator:2.7.3")
+    implementation("org.springframework.boot:spring-boot-starter-web:3.0.1")
+    implementation("org.springframework.boot:spring-boot-starter-validation:3.0.1")
+    implementation("org.springframework.boot:spring-boot-starter-aop:3.0.1")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.0.1")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis:3.0.1")
+    implementation("org.springframework.boot:spring-boot-starter-security:3.0.1")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:3.0.1")
     // Starters - test
-    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.3")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.0.1")
     // Other spring dependencies
-    implementation("org.springframework.boot:spring-boot-configuration-processor:2.7.3")
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:2.7.3")
-    runtimeOnly("org.springframework.boot:spring-boot-devtools:2.7.3")
+    implementation("org.springframework.boot:spring-boot-configuration-processor:3.0.1")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.0.1")
+    runtimeOnly("org.springframework.boot:spring-boot-devtools:3.0.1")
 
     // Development tools
     // Lombok
@@ -49,13 +71,13 @@ dependencies {
     runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
     // Drivers and Data access
-    runtimeOnly("mysql:mysql-connector-java:8.0.30")
+    runtimeOnly("mysql:mysql-connector-java:8.0.31")
     implementation("com.alibaba:druid-spring-boot-starter:1.2.11")
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
 
     // Jaxb
     implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
-    implementation("org.glassfish.jaxb:jaxb-runtime:4.0.0")
+    implementation("org.glassfish.jaxb:jaxb-runtime:4.0.1")
 }
 
 group = "com.key"
