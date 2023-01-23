@@ -54,7 +54,7 @@ public class LoginServiceImpl implements LoginService {
 
         // 将登陆信息存入redis
         LoginEmployee loginEmployee = (LoginEmployee) authentication.getPrincipal();
-        redisUtil.setKeyValue("login:" + loginEmployeeJobNumber, loginEmployee);
+        redisUtil.setValue("login:" + loginEmployeeJobNumber, loginEmployee);
 
         // 生成Jwt，返回给前端
         String token = jwtUtil.generate(loginEmployeeJobNumber);

@@ -26,7 +26,7 @@ public class RedisUtilTest implements WithAssertions {
 
     @Test
     public void testSetAndGetValue() {
-        redisUtil.setKeyValue(KEY, VALUE);
+        redisUtil.setValue(KEY, VALUE);
         String value = (String) this.redisUtil.getValue(KEY);
         assertThat(value)
                 .as("Getting and setting redis value.")
@@ -35,7 +35,7 @@ public class RedisUtilTest implements WithAssertions {
 
     @Test
     public void testExpire() throws InterruptedException {
-        redisUtil.setKeyValue(KEY, VALUE);
+        redisUtil.setValue(KEY, VALUE);
         long time = 2L;
         assertThat(redisUtil.setExpire(KEY, time))
                 .as("Setting expire.")
