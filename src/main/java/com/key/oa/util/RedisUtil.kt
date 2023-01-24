@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component
 import java.util.concurrent.TimeUnit
 
 @Component
-class RedisUtil @Autowired constructor(var redisTemplate: RedisTemplate<String, Any>) {
+class RedisUtil @Autowired constructor(val redisTemplate: RedisTemplate<String, Any>) {
     fun setExpire(key: String, timeoutSeconds: Long): Boolean =
         redisTemplate.expire(key, timeoutSeconds, TimeUnit.SECONDS)
 
