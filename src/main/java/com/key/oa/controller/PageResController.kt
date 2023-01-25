@@ -22,10 +22,8 @@ class PageResController @Autowired constructor(val pageResService: PageResServic
     @GetMapping("/")
     fun getPageResList(@RequestParam page: Int, @RequestParam size: Int)
             : JsonResponse<MutableList<PageRes>>? {
-        val sizeMax = 20
-        if (size in 1..sizeMax && page >= 1) {
-            throw IllegalArgumentException()
-        }
+        val maxSize = 20
+        require(size in 1..maxSize && page >= 1)
 
         val pages = this.pageResService.findAll(PageRequest.of(page - 1, size))
         return JsonResponse.success(pages.toList())
