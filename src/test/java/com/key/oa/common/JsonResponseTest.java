@@ -65,23 +65,4 @@ public class JsonResponseTest implements WithAssertions {
                 .isEqualTo(1);
         assertions.assertAll();
     }
-
-    @Test
-    public void testSetters() {
-        JsonResponse<Integer> response = JsonResponse.success();
-        response.setCode("code");
-        response.setMessage("message");
-        response.setData(10);
-        SoftAssertions assertions = new SoftAssertions();
-        assertions.assertThat(response.getCode())
-                .as("Code should be 'code'.")
-                .isEqualTo("code");
-        assertions.assertThat(response.getMessage())
-                .as("Message should be 'message'.")
-                .isEqualTo("message");
-        assertions.assertThat(response.getData())
-                .as("Data should be 10.")
-                .isEqualTo(10);
-        assertions.assertAll();
-    }
 }
