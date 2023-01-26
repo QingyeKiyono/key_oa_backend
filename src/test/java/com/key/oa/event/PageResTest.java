@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.key.oa.common.JsonResponse;
 import com.key.oa.dto.LoginDTO;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,7 +32,7 @@ public class PageResTest {
         this.mapper = mapper;
     }
 
-    @BeforeEach
+    @BeforeAll
     public void login() throws Exception {
         LoginDTO loginDTO = new LoginDTO("20221390", "1234");
 
@@ -48,7 +46,7 @@ public class PageResTest {
                 });
     }
 
-    @AfterEach
+    @AfterAll
     public void logout() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders
                 .post("/logout")
