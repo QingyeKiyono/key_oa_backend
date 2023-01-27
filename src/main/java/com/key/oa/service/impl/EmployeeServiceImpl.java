@@ -63,6 +63,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional(rollbackFor = Exception.class)
     public void deleteBatch(List<String> jobNumberList) {
         List<Employee> employeeList = repository.findAllByJobNumberIn(jobNumberList);
-        repository.deleteAllInBatch(employeeList);
+        if (employeeList != null) {
+            repository.deleteAllInBatch(employeeList);
+        }
     }
 }
