@@ -1,6 +1,5 @@
 package com.key.oa.service.impl;
 
-import com.key.oa.common.BadCredentialsMessage;
 import com.key.oa.common.JsonResponse;
 import com.key.oa.domain.LoginEmployee;
 import com.key.oa.dto.LoginDTO;
@@ -17,6 +16,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
+
+import static com.key.oa.common.BadCredentialsMessageKt.TOKEN_NOT_FOUND;
 
 /**
  * @author 孙强
@@ -67,7 +68,7 @@ public class LoginServiceImpl implements LoginService {
         UsernamePasswordAuthenticationToken authentication = (UsernamePasswordAuthenticationToken)
                 SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null) {
-            throw new BadCredentialsException(BadCredentialsMessage.TOKEN_NOT_FOUND);
+            throw new BadCredentialsException(TOKEN_NOT_FOUND);
         }
         LoginEmployee loginEmployee = (LoginEmployee) authentication.getPrincipal();
 
