@@ -68,9 +68,10 @@ class SpringSecurityConfig @Autowired constructor(
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val configuration = CorsConfiguration()
-        configuration.allowedOrigins = listOf("http://localhost:3000")
+        configuration.allowedOrigins = listOf("*")
         configuration.allowedHeaders = listOf("*")
         configuration.allowedMethods = listOf("*")
+        configuration.allowedOriginPatterns = listOf("*")
         val source = UrlBasedCorsConfigurationSource()
         source.registerCorsConfiguration("/**", configuration)
         return source
