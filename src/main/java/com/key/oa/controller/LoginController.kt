@@ -18,5 +18,5 @@ class LoginController(private var loginService: LoginService) {
     ): JsonResponse<String> = loginService.login(loginDTO)
 
     @PostMapping("/logout")
-    fun logout(): JsonResponse<Void> = loginService.logout()
+    fun logout(): JsonResponse<Unit> = loginService.logout()
 }
