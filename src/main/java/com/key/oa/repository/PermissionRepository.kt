@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PermissionRepository : JpaRepository<Permission, Long>, JpaSpecificationExecutor<Permission> {
-}
+interface PermissionRepository : JpaRepository<Permission, Long>, JpaSpecificationExecutor<Permission>

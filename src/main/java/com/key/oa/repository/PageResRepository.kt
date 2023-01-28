@@ -6,5 +6,4 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor
 import org.springframework.stereotype.Repository
 
 @Repository
-interface PageResRepository : JpaRepository<PageRes, Long>, JpaSpecificationExecutor<PageRes> {
-}
+interface PageResRepository : JpaRepository<PageRes, Long>, JpaSpecificationExecutor<PageRes>
