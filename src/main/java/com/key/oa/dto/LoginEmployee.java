@@ -1,4 +1,4 @@
-package com.key.oa.domain;
+package com.key.oa.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;

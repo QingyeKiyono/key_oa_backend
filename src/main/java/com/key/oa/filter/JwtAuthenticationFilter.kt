@@ -1,6 +1,6 @@
 package com.key.oa.filter
 
-import com.key.oa.domain.LoginEmployee
+import com.key.oa.dto.LoginEmployee
 import com.key.oa.util.JwtUtil
 import com.key.oa.util.RedisUtil
 import jakarta.servlet.FilterChain

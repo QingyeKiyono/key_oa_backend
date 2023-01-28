@@ -4,7 +4,7 @@ import com.key.oa.common.JsonResponse
 import com.key.oa.common.JsonResponse.Companion.error
 import com.key.oa.common.JsonResponse.Companion.success
 import com.key.oa.common.TOKEN_NOT_FOUND
-import com.key.oa.domain.LoginEmployee
+import com.key.oa.dto.LoginEmployee
 import com.key.oa.dto.LoginDTO
 import com.key.oa.service.LoginService
 import com.key.oa.util.JwtUtil
