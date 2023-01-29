@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController
 class PageResController @Autowired constructor(val pageResService: PageResService) {
     @GetMapping("/current")
     @PreAuthorize("isAuthenticated()")
-    fun getPagesOfCurrentUser(): JsonResponse<MutableSet<PageRes>> =
-        JsonResponse.success(pageResService.pageResOfCurrentUser)
+    fun getPagesOfCurrentUser(): JsonResponse<Set<PageRes>> =
+        JsonResponse.success(pageResService.getPageResOfCurrentUser())
 
     @GetMapping("/")
     fun getPageResList(@RequestParam page: Int, @RequestParam size: Int)
-            : JsonResponse<MutableList<PageRes>>? {
+            : JsonResponse<List<PageRes>>? {
         val maxSize = 20
         require(size in 1..maxSize && page >= 1)
 

@@ -19,7 +19,7 @@ interface EmployeeService {
      * @param jobNumber 员工的工号
      * @return 对应的员工信息
      */
-    fun findByJobNumber(jobNumber: String): Employee
+    fun findByJobNumber(jobNumber: String): Employee?
 
     /**
      * 新建员工信息
