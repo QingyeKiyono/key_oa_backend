@@ -27,17 +27,10 @@ class JwtUtilTest @Autowired constructor(val jwtUtil: JwtUtil) : WithAssertions 
     fun testParse() {
         val claims: MutableMap<String, Any> = HashMap()
         claims["1"] = 1
-        val token = jwtUtil.generateWithClaims("123", claims)
+        val token = jwtUtil.generate("123", claims)
         val parsedClaims = jwtUtil.parse(token)
         assertThat(parsedClaims["1"])
             .`as`("Checking claim.")
             .isEqualTo(1)
-    }
-
-    @Test
-    fun testSalt() {
-        assertThat(jwtUtil.salt)
-            .`as`("Checking salt value.")
-            .isEqualTo("1Jvq2wYsh3B2Ex9UZlNwNUMpbCILbvQt")
     }
 }

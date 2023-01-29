@@ -41,7 +41,3 @@ management:
         include: "*"
       cors:
         allowed-origin-patterns: "*"
-
-key-oa:
-  jwt:
-    salt: 1Jvq2wYsh3B2Ex9UZlNwNUMpbCILbvQt

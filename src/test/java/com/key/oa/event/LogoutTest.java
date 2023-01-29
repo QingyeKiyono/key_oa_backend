@@ -5,10 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.key.oa.common.JsonResponse;
 import com.key.oa.dto.LoginDTO;
 import com.key.oa.util.JwtUtil;
-import io.jsonwebtoken.JwtBuilder;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-import org.apache.commons.lang3.time.DateUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -17,12 +13,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.util.Base64;
-import java.util.Date;
-import java.util.UUID;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -84,21 +74,7 @@ public class LogoutTest {
 
     @Test
     public void testTokenExpired() throws Exception {
-        // 这里把JwtUtil中的变量放进来
-        String issuer = jwtUtil.getIssuer();
-        Integer ttlByMinute = jwtUtil.getTtlByMinute();
-        String salt = jwtUtil.getSalt();
-        Key key = Keys.hmacShaKeyFor(Base64.getEncoder().encode(salt.getBytes(StandardCharsets.UTF_8)));
-
-        JwtBuilder builder = Jwts.builder()
-                .setIssuer(issuer)
-                .setIssuedAt(new Date())
-                // 默认失效时间为1天
-                .setExpiration(DateUtils.addMinutes(new Date(), (-1 * ttlByMinute)))
-                .setId(UUID.randomUUID().toString())
-                .signWith(key);
-
-        String expiredToken = builder.setSubject("20221390").compact();
+        String expiredToken = jwtUtil.generate("20221390", null, -1);
 
         mockMvc.perform(MockMvcRequestBuilders
                         .post("/logout")
