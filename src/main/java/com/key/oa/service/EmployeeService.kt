@@ -1,22 +1,17 @@
-package com.key.oa.service;
+package com.key.oa.service
 
-import com.key.oa.entity.Employee;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import com.key.oa.entity.Employee
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 
-import java.util.List;
-
-/**
- * @author 孙强
- */
-public interface EmployeeService {
+interface EmployeeService {
     /**
      * 返回所有员工的信息
      *
      * @param pageable 分页信息
      * @return 所有的员工信息
      */
-    Page<Employee> findAll(Pageable pageable);
+    fun findAll(pageable: Pageable): Page<Employee>
 
     /**
      * 根据工号查找员工信息
@@ -24,7 +19,7 @@ public interface EmployeeService {
      * @param jobNumber 员工的工号
      * @return 对应的员工信息
      */
-    Employee findByJobNumber(String jobNumber);
+    fun findByJobNumber(jobNumber: String): Employee
 
     /**
      * 新建员工信息
@@ -32,7 +27,7 @@ public interface EmployeeService {
      * @param employee 需要创建的员工信息
      * @return 创建后的员工信息
      */
-    Employee save(Employee employee);
+    fun save(employee: Employee): Employee
 
     /**
      * 更新员工的信息
@@ -40,26 +35,26 @@ public interface EmployeeService {
      * @param employee 需要更新的员工信息，要确保Id存在
      * @return 更新后的员工信息
      */
-    Employee update(Employee employee);
+    fun update(employee: Employee): Employee
 
     /**
      * 根据Id删除员工信息
      *
      * @param id 需要删除的员工id
      */
-    void deleteById(Long id);
+    fun deleteById(id: Long)
 
     /**
      * 查看员工数量
      *
      * @return 所有的员工数量
      */
-    long count();
+    fun count(): Long
 
     /**
      * 删除一批员工
      *
      * @param jobNumberList 删除的员工工号列表
      */
-    void deleteBatch(List<String> jobNumberList);
+    fun deleteBatch(jobNumberList: List<String>)
 }

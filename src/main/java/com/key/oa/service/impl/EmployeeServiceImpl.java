@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(long id) {
         repository.deleteById(id);
     }
 
