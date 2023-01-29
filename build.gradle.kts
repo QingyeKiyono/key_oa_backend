@@ -86,10 +86,6 @@ dependencies {
     // Drivers and Data access
     runtimeOnly("mysql:mysql-connector-java:8.0.31")
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-
-    // Jaxb
-    implementation("javax.xml.bind:jaxb-api:2.4.0-b180830.0359")
-    implementation("org.glassfish.jaxb:jaxb-runtime:4.0.1")
 }
 
 group = "com.key"
