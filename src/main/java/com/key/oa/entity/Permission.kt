@@ -2,7 +2,6 @@ package com.key.oa.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
-import lombok.ToString
 
 @Entity
 class Permission(
@@ -12,13 +11,12 @@ class Permission(
 
     @Column(nullable = false) var description: String,
 
-    @ToString.Exclude @JsonIgnore
+    @JsonIgnore
     @ManyToMany(mappedBy = "permissions") var roles: MutableSet<Role> = HashSet(),
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     var parent: Permission?,
 
-    @ToString.Exclude
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "parent")
     var children: MutableSet<Permission> = HashSet(),
 ) {

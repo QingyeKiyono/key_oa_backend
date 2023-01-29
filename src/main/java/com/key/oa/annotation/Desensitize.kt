@@ -1,5 +1,6 @@
 package com.key.oa.annotation
 
+import com.fasterxml.jackson.annotation.JacksonAnnotation
 import com.fasterxml.jackson.annotation.JacksonAnnotationsInside
 import com.fasterxml.jackson.databind.annotation.JsonSerialize
 import com.key.oa.config.DesensitizeJsonSerializer
@@ -12,8 +13,9 @@ import java.util.function.Function
  * @author 孙强
  */
 @Retention(AnnotationRetention.RUNTIME)
-@Target(AnnotationTarget.FIELD, AnnotationTarget.TYPE, AnnotationTarget.PROPERTY)
+@Target(AnnotationTarget.PROPERTY, AnnotationTarget.VALUE_PARAMETER)
 @JacksonAnnotationsInside
+@JacksonAnnotation
 @JsonSerialize(using = DesensitizeJsonSerializer::class)
 annotation class Desensitize(
     /**

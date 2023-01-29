@@ -1,5 +1,6 @@
 package com.key.oa.entity
 
+import com.fasterxml.jackson.annotation.JsonFormat
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.key.oa.annotation.Desensitize
 import jakarta.persistence.*
@@ -17,8 +18,10 @@ class Employee(
 
     @Column(nullable = false, unique = true) var email: String,
 
+    @Desensitize(strategy = Desensitize.DesensitizeStrategy.ID_CARD)
     @Column(nullable = false, unique = true) var identity: String,
 
+    @JsonFormat(pattern = "yyyy-MM-dd")
     @Column(nullable = false) var birthday: Date,
 
     @Column(nullable = false, unique = true) var jobNumber: String,  // 员工的工号

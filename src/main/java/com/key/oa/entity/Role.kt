@@ -1,7 +1,7 @@
 package com.key.oa.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
-import lombok.ToString
 
 @Entity
 class Role(
@@ -13,17 +13,16 @@ class Role(
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER) var parent: Role?,
 
-    @ToString.Exclude
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "parent")
     var children: MutableSet<Role> = HashSet(),
 
-    @ToString.Exclude
+    @JsonIgnore
     @ManyToMany var employees: MutableSet<Employee> = HashSet(),
 
-    @ToString.Exclude
+    @JsonIgnore
     @ManyToMany var permissions: MutableSet<Permission> = HashSet(),
 
-    @ToString.Exclude
+    @JsonIgnore
     @ManyToMany var pageRes: MutableSet<PageRes> = HashSet(),
 ) {
     override fun equals(other: Any?): Boolean {

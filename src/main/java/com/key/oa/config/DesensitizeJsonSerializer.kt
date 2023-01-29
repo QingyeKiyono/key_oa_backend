@@ -9,10 +9,10 @@ import com.key.oa.annotation.Desensitize
 import com.key.oa.annotation.Desensitize.DesensitizeStrategy
 
 class DesensitizeJsonSerializer : JsonSerializer<String>(), ContextualSerializer {
-    private var strategy: DesensitizeStrategy? = null
+    private lateinit var strategy: DesensitizeStrategy
 
     override fun serialize(value: String, gen: JsonGenerator, serializers: SerializerProvider) {
-        gen.writeString(strategy?.desensitizeSerializer()?.apply(value))
+        gen.writeString(strategy.desensitizeSerializer().apply(value))
     }
 
     override fun createContextual(prov: SerializerProvider, property: BeanProperty): JsonSerializer<*> {

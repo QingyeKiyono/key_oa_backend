@@ -2,7 +2,6 @@ package com.key.oa.entity
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
-import lombok.ToString
 
 @Entity
 class PageRes(
@@ -16,13 +15,13 @@ class PageRes(
 
     @Column(nullable = false) var pageGroup: Boolean,  // Whether this is a page group.
 
-    @ToString.Exclude @JsonIgnore
+    @JsonIgnore
     @ManyToMany(mappedBy = "pageRes") var roles: MutableSet<Role> = HashSet(),
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     var parent: PageRes?,
 
-    @ToString.Exclude @JsonIgnore
+    @JsonIgnore
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "parent")
     var children: MutableSet<PageRes> = HashSet(),
 ) {
