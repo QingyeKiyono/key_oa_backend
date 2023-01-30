@@ -57,7 +57,7 @@ class CustomControllerAdvice {
             log.info("Request argument is illegal: {}.", exception.message, exception)
         }
         val response: JsonResponse<Unit> = error("A0402", "无效的用户输入")
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response)
+        return ResponseEntity.ok().body(response)
     }
 
     @ExceptionHandler(Exception::class)
