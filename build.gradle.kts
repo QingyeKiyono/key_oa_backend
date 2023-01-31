@@ -19,8 +19,6 @@ repositories {
     maven { url = uri("https://maven.aliyun.com/repository/gradle-plugin") }
     maven { url = uri("https://maven.aliyun.com/repository/spring") }
     maven { url = uri("https://maven.aliyun.com/repository/spring-plugin") }
-    maven { url = uri("https://maven.aliyun.com/repository/grails-core") }
-    maven { url = uri("https://maven.aliyun.com/repository/apache-snapshots") }
     mavenLocal()
 }
 
@@ -61,7 +59,7 @@ dependencies {
     runtimeOnly("mysql:mysql-connector-java:8.0.31")
 }
 
-group = "com.key"
+group = "com.key.oa"
 version = "0.0.1-SNAPSHOT"
 description = "KeyOA-backend"
 java.sourceCompatibility = JavaVersion.VERSION_17
