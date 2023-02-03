@@ -23,7 +23,7 @@ annotation class Desensitize(
      *
      * @return 脱敏策略
      */
-    val strategy: oa.annotation.Desensitize.DesensitizeStrategy
+    val strategy: DesensitizeStrategy
 ) {
     enum class DesensitizeStrategy(private val desensitizeSerializer: Function<String, String>) {
         /**
