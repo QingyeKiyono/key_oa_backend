@@ -48,7 +48,10 @@ class PageResTest @Autowired constructor(private val mockMvc: MockMvc, private v
         mockMvc.get("/pages/current") {
             header("token", token)
         }.andExpect {
-            jsonPath("$.data") { exists() }
-        }.andDo { print() }
+            jsonPath("$.data") {
+                isNotEmpty()
+                isArray()
+            }
+        }
     }
 }
