@@ -12,9 +12,9 @@ class Permission(
     @Column(nullable = false) var description: String,
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "permissions") var roles: MutableSet<Role> = HashSet(),
+    @ManyToMany(mappedBy = "permissions", cascade = [CascadeType.ALL]) var roles: MutableSet<Role> = HashSet(),
 
-    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     var parent: Permission?,
 
     @OneToMany(cascade = [CascadeType.ALL], mappedBy = "parent")

@@ -16,7 +16,7 @@ class PageRes(
     @Column(nullable = false) var pageGroup: Boolean,  // Whether this is a page group.
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "pageRes") var roles: MutableSet<Role> = HashSet(),
+    @ManyToMany(mappedBy = "pageRes", cascade = [CascadeType.ALL]) var roles: MutableSet<Role> = HashSet(),
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
     var parent: PageRes?,

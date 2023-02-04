@@ -32,7 +32,7 @@ class Employee(
     @Column(nullable = false) var verified: Boolean,
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "employees")
+    @ManyToMany(mappedBy = "employees", cascade = [CascadeType.ALL])
     var roles: MutableSet<Role> = HashSet()
 ) {
     override fun equals(other: Any?): Boolean {
