@@ -180,7 +180,7 @@ class EmployeeTest @Autowired constructor(
     @Transactional
     @Rollback
     fun testDeleteBatch() {
-        mockMvc.post("$REQUEST_PATH/:deleteBatch") {
+        mockMvc.delete("$REQUEST_PATH/:deleteBatch") {
             header("token", token)
             content = mapper.writeValueAsString(listOf("20221390", "20223395"))
             contentType = MediaType.APPLICATION_JSON
