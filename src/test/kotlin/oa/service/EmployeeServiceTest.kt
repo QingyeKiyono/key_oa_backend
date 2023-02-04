@@ -1,11 +1,15 @@
 package oa.service
 
+import oa.entity.Employee
 import org.assertj.core.api.WithAssertions
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.PageRequest
+import org.springframework.test.annotation.Rollback
+import org.springframework.transaction.annotation.Transactional
+import java.util.Date
 
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
@@ -36,5 +40,52 @@ class EmployeeServiceTest @Autowired constructor(private val employeeService: Em
         assertThat(list.size)
             .`as`("Only has 10 records.")
             .isEqualTo(10)
+    }
+
+    @Test
+    fun testFindByJobNumber() {
+        var jobNumber = "20221390"
+        var employee = employeeService.findByJobNumber(jobNumber)
+        assertThat(employee)
+            .`as`("Found an employee.")
+            .isNotNull
+            .extracting("jobNumber").isEqualTo("20221390")
+
+        jobNumber = "20221221"
+        employee = employeeService.findByJobNumber(jobNumber)
+        assertThat(employee)
+            .`as`("Employee shouldn't exist.")
+            .isNull()
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    fun testSave() {
+        var employee = Employee(
+            id = null, jobNumber = "20222200", name = "测试", phone = "",
+            email = "", password = "", birthday = Date(), verified = true, identity = "2011231231"
+        )
+
+        employee = employeeService.save(employee)
+        assertThat(employee)
+            .`as`("Password should be '1234'.")
+            .extracting("password").isEqualTo("1234")
+
+        assertThat(employee)
+            .`as`("Verified should be false.")
+            .extracting("verified").isEqualTo(false)
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    fun testUpdate() {
+        var employee = employeeService.findByJobNumber("20221390")!!
+        employee.jobNumber = "20221391"
+        employee = employeeService.update(employee)
+        assertThat(employee)
+            .`as`("Job number should change.")
+            .extracting("jobNumber").isEqualTo("20221391")
     }
 }
