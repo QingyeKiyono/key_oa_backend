@@ -88,4 +88,27 @@ class EmployeeServiceTest @Autowired constructor(private val employeeService: Em
             .`as`("Job number should change.")
             .extracting("jobNumber").isEqualTo("20221391")
     }
+
+    @Test
+    @Transactional
+    @Rollback
+    fun testDeleteById() {
+        employeeService.deleteById(1L)
+        val count = employeeService.count()
+        assertThat(count)
+            .`as`("Count should be 9.")
+            .isEqualTo(9L)
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    fun testDeleteBatch() {
+        val jobNumbers: List<String> = listOf("20221390", "20223395")
+        employeeService.deleteBatch(jobNumbers)
+        val count = employeeService.count()
+        assertThat(count)
+            .`as`("Count should be 9.")
+            .isEqualTo(8L)
+    }
 }
