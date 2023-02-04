@@ -13,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
-import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.get
-import org.springframework.test.web.servlet.post
+import org.springframework.test.annotation.Rollback
+import org.springframework.test.web.servlet.*
+import org.springframework.transaction.annotation.Transactional
+import java.util.*
 
 private const val REQUEST_PATH: String = "/employees"
 
@@ -83,7 +84,7 @@ class EmployeeTest @Autowired constructor(
             }
         }
 
-        // 查看当前登录员工号
+        // 查看非当前登录员工号
         mockMvc.get("$REQUEST_PATH/20224804") {
             header("token", token)
             param("current", "false")
@@ -111,6 +112,82 @@ class EmployeeTest @Autowired constructor(
             status { isOk() }
             jsonPath("$.code") { value("00000") }
             jsonPath("$.data") { value("10") }
+        }
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    fun testSave() {
+        val employee = Employee(
+            id = null, jobNumber = "20222200", name = "测试", phone = "",
+            email = "", password = "", birthday = Date(), verified = true, identity = "2011231231"
+        )
+
+        mockMvc.post("$REQUEST_PATH/") {
+            content = mapper.writeValueAsString(employee)
+            contentType = MediaType.APPLICATION_JSON
+            characterEncoding = "UTF-8"
+            header("token", token)
+        }.andExpect {
+            status { isOk() }
+            jsonPath("$.code") { value("00000") }
+            // 结果校验省略，因为已经在EmployeeServiceTest中测试完毕
+        }
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    fun testUpdate() {
+        lateinit var employee: Employee
+
+        mockMvc.get("$REQUEST_PATH/20221390") {
+            header("token", token)
+            param("current", "false")
+        }.andDo {
+            handle {
+                employee = mapper.readValue(it.response.contentAsString,
+                    object : TypeReference<JsonResponse<Employee>>() {}).data!!
+            }
+        }
+
+        employee.jobNumber = "20221391"
+        mockMvc.put("$REQUEST_PATH/${employee.id}") {
+            header("token", token)
+            content = mapper.writeValueAsString(employee)
+            contentType = MediaType.APPLICATION_JSON
+            characterEncoding = "UTF-8"
+        }.andExpect {
+            status { isOk() }
+            jsonPath("$.code") { value("00000") }
+        }
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    fun testDelete() {
+        mockMvc.delete("$REQUEST_PATH/1") {
+            header("token", token)
+        }.andExpect {
+            status { isOk() }
+            jsonPath("$.code") { value("00000") }
+        }
+    }
+
+    @Test
+    @Transactional
+    @Rollback
+    fun testDeleteBatch() {
+        mockMvc.post("$REQUEST_PATH/:deleteBatch") {
+            header("token", token)
+            content = mapper.writeValueAsString(listOf("20221390", "20223395"))
+            contentType = MediaType.APPLICATION_JSON
+            characterEncoding = "UTF-8"
+        }.andExpect {
+            status { isOk() }
+            jsonPath("$.code") { value("00000") }
         }
     }
 
