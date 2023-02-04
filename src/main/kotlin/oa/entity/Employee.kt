@@ -9,16 +9,16 @@ import kotlin.collections.HashSet
 
 @Entity
 class Employee(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?,
 
     @Column(nullable = false) var name: String,
 
-    @oa.annotation.Desensitize(strategy = Desensitize.DesensitizeStrategy.PHONE)
+    @Desensitize(strategy = Desensitize.DesensitizeStrategy.PHONE)
     @Column(nullable = false, unique = true) var phone: String,
 
     @Column(nullable = false, unique = true) var email: String,
 
-    @oa.annotation.Desensitize(strategy = oa.annotation.Desensitize.DesensitizeStrategy.ID_CARD)
+    @Desensitize(strategy = Desensitize.DesensitizeStrategy.ID_CARD)
     @Column(nullable = false, unique = true) var identity: String,
 
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -26,7 +26,7 @@ class Employee(
 
     @Column(nullable = false, unique = true) var jobNumber: String,  // 员工的工号
 
-    @oa.annotation.Desensitize(strategy = Desensitize.DesensitizeStrategy.PASSWORD)
+    @Desensitize(strategy = Desensitize.DesensitizeStrategy.PASSWORD)
     @Column(nullable = false) var password: String,
 
     @Column(nullable = false) var verified: Boolean,

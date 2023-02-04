@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Entity
 class Permission(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long,
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) var id: Long?,
 
     @Column(nullable = false, unique = true) var value: String,
 
