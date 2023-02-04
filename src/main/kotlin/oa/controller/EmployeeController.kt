@@ -54,7 +54,7 @@ class EmployeeController @Autowired constructor(private val employeeService: Emp
         return success()
     }
 
-    @PostMapping("/:deleteBatch")
+    @DeleteMapping("/:deleteBatch")
     @PreAuthorize("hasAuthority('oa:employee:delete')")
     fun deleteBatch(@RequestBody jobNumberList: List<String>): JsonResponse<Void> {
         employeeService.deleteBatch(jobNumberList)
