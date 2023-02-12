@@ -12,5 +12,5 @@ fun <T : Any> T.logger(): Lazy<Logger> {
         ofClass.enclosingClass.kotlin.companionObject?.java == ofClass
     } ?: ofClass
 
-    return lazy { LoggerFactory.getLogger(clazz.name) }
+    return lazy { LoggerFactory.getLogger(clazz) }
 }
