@@ -123,6 +123,10 @@ VALUES (1, 14);
 
 -- 添加页面资源
 INSERT INTO `page_res`(id, description, page_group, icon, url, parent_id)
-VALUES (null, '查看员工列表', false, 'mdi-account', '/employees', null);
+VALUES (null, '查看员工列表', false, 'mdi-account-multiple', '/employees', null);
 INSERT INTO `role_page_res`(roles_id, page_res_id)
 VALUES (3, 1);
+INSERT INTO `page_res`(id, description, page_group, icon, url, parent_id)
+VALUES (null, '查看页面列表', false, 'mdi-book-check', '/pages', null);
+INSERT INTO `role_page_res`(roles_id, page_res_id)
+VALUES (3, 2);
