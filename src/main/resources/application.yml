@@ -17,6 +17,11 @@ spring:
   jpa:
     defer-datasource-initialization: true
     open-in-view: true
+    properties:
+      jakarta:
+        persistence:
+          sharedCache:
+            mode: UNSPECIFIED
 
   # Redis
   data:
