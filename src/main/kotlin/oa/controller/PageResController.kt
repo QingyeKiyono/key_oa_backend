@@ -19,7 +19,8 @@ class PageResController @Autowired constructor(val pageResService: PageResServic
     fun getForCurrentUser(): JsonResponse<Set<PageRes>> =
         JsonResponse.success(pageResService.getPageResOfCurrentUser())
 
-    @GetMapping("/")
+    @GetMapping("")
+    @PreAuthorize("isAuthenticated()")
     fun getList(@RequestParam page: Int, @RequestParam size: Int)
             : JsonResponse<List<PageRes>>? {
         val maxSize = 20
