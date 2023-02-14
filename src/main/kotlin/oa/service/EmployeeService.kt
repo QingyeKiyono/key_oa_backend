@@ -1,17 +1,21 @@
 package oa.service
 
 import oa.entity.Employee
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 interface EmployeeService {
     /**
-     * 返回所有员工的信息
+     * 返回所有的员工信息，不带分页
+     */
+    fun findAll(): List<Employee>
+
+    /**
+     * 返回所有员工的信息，带有分页信息
      *
      * @param pageable 分页信息
      * @return 所有的员工信息
      */
-    fun findAll(pageable: Pageable): Page<Employee>
+    fun findAll(pageable: Pageable): List<Employee>
 
     /**
      * 根据工号查找员工信息

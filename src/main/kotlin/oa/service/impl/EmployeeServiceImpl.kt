@@ -4,14 +4,15 @@ import oa.entity.Employee
 import oa.repository.EmployeeRepository
 import oa.service.EmployeeService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
 @Service
 class EmployeeServiceImpl @Autowired constructor(private val repository: EmployeeRepository) : EmployeeService {
-    override fun findAll(pageable: Pageable): Page<Employee> = repository.findAll(pageable)
+    override fun findAll(): List<Employee> = repository.findAll()
+
+    override fun findAll(pageable: Pageable): List<Employee> = repository.findAll(pageable).toList()
 
     override fun findByJobNumber(jobNumber: String): Employee? = repository.findByJobNumber(jobNumber)
 
