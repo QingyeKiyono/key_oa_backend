@@ -25,18 +25,26 @@ class EmployeeServiceTest @Autowired constructor(private val employeeService: Em
 
     @Test
     fun testFindAll() {
+        val list = employeeService.findAll()
+        assertThat(list.size)
+            .`as`("Should be 10, because there are only 10 employees.")
+            .isEqualTo(10)
+    }
+
+    @Test
+    fun testFindAllWithPagination() {
         var pageRequest = PageRequest.of(0, 10)
-        var list = employeeService.findAll(pageRequest).toList()
+        var list = employeeService.findAll(pageRequest)
         assertThat(list.size)
             .`as`("Page list size.")
             .isEqualTo(10)
         pageRequest = PageRequest.of(0, 9)
-        list = employeeService.findAll(pageRequest).toList()
+        list = employeeService.findAll(pageRequest)
         assertThat(list.size)
             .`as`("Page with size 9.")
             .isLessThan(10)
         pageRequest = PageRequest.of(0, 12)
-        list = employeeService.findAll(pageRequest).toList()
+        list = employeeService.findAll(pageRequest)
         assertThat(list.size)
             .`as`("Only has 10 records.")
             .isEqualTo(10)
