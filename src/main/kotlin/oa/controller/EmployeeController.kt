@@ -12,14 +12,19 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/employees")
-class EmployeeController @Autowired constructor(private val employeeService: EmployeeService) {
+class EmployeeController @Autowired constructor(private val service: EmployeeService) {
     @GetMapping("")
     @PreAuthorize("hasAuthority('oa:employee:list')")
     fun getList(@RequestParam page: Int, @RequestParam size: Int): JsonResponse<List<Employee>> {
-        val sizeMax = 20
-        require(size in 1..sizeMax && page >= 1)
-        val employees = employeeService.findAll(PageRequest.of(page - 1, size))
-        return success(employees.stream().toList())
+        require(page >= 1)
+        val employees = if (size < 0) {
+            // Return all employees without pagination
+            service.findAll()
+        } else {
+            // Return employees with pagination
+            service.findAll(PageRequest.of(page - 1, size))
+        }
+        return success(employees)
     }
 
     @GetMapping("/{jobNumber}")
@@ -29,13 +34,13 @@ class EmployeeController @Autowired constructor(private val employeeService: Emp
         @RequestParam(required = false, defaultValue = "false") current: Boolean
     ): JsonResponse<Employee> {
         val newJobNumber = if (current) SecurityContextHolder.getContext().authentication.name else jobNumber
-        return success(employeeService.findByJobNumber(newJobNumber))
+        return success(service.findByJobNumber(newJobNumber))
     }
 
     @PostMapping("/")
     @PreAuthorize("hasAuthority('oa:employee:modify')")
     fun save(@RequestBody employee: Employee): JsonResponse<Employee> =
-        success(employeeService.save(employee))
+        success(service.save(employee))
 
 
     @PutMapping("/{id}")
@@ -44,24 +49,24 @@ class EmployeeController @Autowired constructor(private val employeeService: Emp
         // 为了满足restful api
         // 校验id和实际的员工id值是否相等
         require(id == employee.id)
-        return success(employeeService.update(employee))
+        return success(service.update(employee))
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('oa:employee:delete')")
     fun delete(@PathVariable id: Long): JsonResponse<Void> {
-        employeeService.deleteById(id)
+        service.deleteById(id)
         return success()
     }
 
     @DeleteMapping("/:deleteBatch")
     @PreAuthorize("hasAuthority('oa:employee:delete')")
     fun deleteBatch(@RequestBody jobNumberList: List<String>): JsonResponse<Void> {
-        employeeService.deleteBatch(jobNumberList)
+        service.deleteBatch(jobNumberList)
         return success()
     }
 
     @GetMapping("/count")
     @PreAuthorize("hasAuthority('oa:employee:list')")
-    fun count(): JsonResponse<Long> = success(employeeService.count())
+    fun count(): JsonResponse<Long> = success(service.count())
 }
