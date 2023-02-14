@@ -23,10 +23,15 @@ class PageResController @Autowired constructor(val pageResService: PageResServic
     @PreAuthorize("isAuthenticated()")
     fun getList(@RequestParam page: Int, @RequestParam size: Int)
             : JsonResponse<List<PageRes>>? {
-        val maxSize = 20
-        require(size in 1..maxSize && page >= 1)
+        require(page >= 1)
 
-        val pages = this.pageResService.findAll(PageRequest.of(page - 1, size))
-        return JsonResponse.success(pages.toList())
+        val pages = if (size < 0) {
+            // 返回全部页面信息
+            pageResService.findAll()
+        } else {
+            // 返回特定分页的页面信息
+            pageResService.findAll(PageRequest.of(page - 1, size))
+        }
+        return JsonResponse.success(pages)
     }
 }
