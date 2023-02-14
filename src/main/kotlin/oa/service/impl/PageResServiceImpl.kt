@@ -30,4 +30,6 @@ class PageResServiceImpl @Autowired constructor(
     override fun findAll(): List<PageRes> = repository.findAll()
 
     override fun findAll(pageable: Pageable): List<PageRes> = repository.findAll(pageable).toList()
+
+    override fun count(): Long = repository.count()
 }

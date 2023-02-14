@@ -25,4 +25,11 @@ interface PageResService {
      * @return 当前页面的页面资源信息
      */
     fun findAll(pageable: Pageable): List<PageRes>
+
+    /**
+     * 查询页面数量
+     *
+     * @return 页面的数量
+     */
+    fun count(): Long
 }

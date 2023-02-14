@@ -1,6 +1,7 @@
 package oa.controller
 
 import oa.common.JsonResponse
+import oa.common.JsonResponse.Companion.success
 import oa.entity.PageRes
 import oa.service.PageResService
 import org.springframework.beans.factory.annotation.Autowired
@@ -17,7 +18,7 @@ class PageResController @Autowired constructor(val pageResService: PageResServic
     @GetMapping("/current")
     @PreAuthorize("isAuthenticated()")
     fun getForCurrentUser(): JsonResponse<Set<PageRes>> =
-        JsonResponse.success(pageResService.getPageResOfCurrentUser())
+        success(pageResService.getPageResOfCurrentUser())
 
     @GetMapping("")
     @PreAuthorize("isAuthenticated()")
@@ -32,6 +33,10 @@ class PageResController @Autowired constructor(val pageResService: PageResServic
             // 返回特定分页的页面信息
             pageResService.findAll(PageRequest.of(page - 1, size))
         }
-        return JsonResponse.success(pages)
+        return success(pages)
     }
+
+    @GetMapping("/count")
+    @PreAuthorize("isAuthenticated()")
+    fun count(): JsonResponse<Long> = success(pageResService.count())
 }
