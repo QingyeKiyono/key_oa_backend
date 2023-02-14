@@ -1,7 +1,6 @@
 package oa.service
 
 import oa.entity.PageRes
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 interface PageResService {
@@ -15,8 +14,15 @@ interface PageResService {
     /**
      * 获取全部的页面资源信息
      *
+     * @return 全部的页面资源
+     */
+    fun findAll(): List<PageRes>
+
+    /**
+     * 获取全部的页面资源信息，使用分页查询
+     *
      * @param pageable 分页信息
      * @return 当前页面的页面资源信息
      */
-    fun findAll(pageable: Pageable): Page<PageRes>
+    fun findAll(pageable: Pageable): List<PageRes>
 }

@@ -5,7 +5,6 @@ import oa.repository.PageResRepository
 import oa.service.EmployeeService
 import oa.service.PageResService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Service
@@ -28,5 +27,7 @@ class PageResServiceImpl @Autowired constructor(
         return pageRes
     }
 
-    override fun findAll(pageable: Pageable): Page<PageRes> = repository.findAll(pageable)
+    override fun findAll(): List<PageRes> = repository.findAll()
+
+    override fun findAll(pageable: Pageable): List<PageRes> = repository.findAll(pageable).toList()
 }
