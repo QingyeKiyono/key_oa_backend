@@ -30,11 +30,31 @@ class EmployeeTest @Autowired constructor(
 
     @Test
     fun testGetList() {
-        // 首先测试成功返回结果
+        // 首先测试成功返回结果，带分页信息
         mockMvc.get(REQUEST_PATH) {
             header("token", token)
             param("page", "1")
-            param("size", "10")
+            param("size", "5")
+        }.andExpect {
+            status { isOk() }
+            jsonPath("$.code") { value("00000") }
+            jsonPath("$.data") { isNotEmpty() }
+        }.andDo {
+            handle {
+                val content = it.response.contentAsString
+                val employeeList: List<Employee> = mapper.readValue(content,
+                    object : TypeReference<JsonResponse<List<Employee>>>() {}).data!!
+                assertThat(employeeList)
+                    .`as`("Employee length should be 5.")
+                    .hasSize(5)
+            }
+        }
+
+        // 测试不带分页信息，返回全部结果
+        mockMvc.get(REQUEST_PATH) {
+            header("token", token)
+            param("page", "1")
+            param("size", "-1")
         }.andExpect {
             status { isOk() }
             jsonPath("$.code") { value("00000") }
@@ -54,7 +74,7 @@ class EmployeeTest @Autowired constructor(
         mockMvc.get(REQUEST_PATH) {
             header("token", token)
             param("page", "0")
-            param("size", "0")
+            param("size", "10")
         }.andExpect {
             status { isOk() }
             jsonPath("$.code") { value("A0402") }
