@@ -6,6 +6,8 @@ import org.springframework.data.domain.Pageable
 interface EmployeeService {
     /**
      * 返回所有的员工信息，不带分页
+     *
+     * @return 全部的员工信息
      */
     fun findAll(): List<Employee>
 
