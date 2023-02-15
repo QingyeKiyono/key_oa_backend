@@ -9,8 +9,9 @@ plugins {
     kotlin("plugin.allopen") version "1.7.22"
 
     id("org.springframework.boot") version "3.0.1"
-    id("io.spring.dependency-management") version "1.1.0"
 }
+
+apply(plugin = "io.spring.dependency-management")
 
 repositories {
     maven { url = uri("https://maven.aliyun.com/repository/public/") }
@@ -81,7 +82,3 @@ tasks.withType<Test> {
 }
 
 buildscript { repositories { mavenCentral() } }
-
-springBoot {
-    mainClass.set("com.key.oa.KeyOaBackendApplication")
-}
