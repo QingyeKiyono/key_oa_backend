@@ -52,17 +52,12 @@ class EmployeeController @Autowired constructor(private val service: EmployeeSer
         return success(service.update(employee))
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("")
     @PreAuthorize("hasAuthority('oa:employee:delete')")
-    fun delete(@PathVariable id: Long): JsonResponse<Unit> {
-        service.deleteById(id)
-        return success()
-    }
+    fun delete(@RequestBody vararg jobNumbers: String): JsonResponse<Unit> {
+        // 这里在前端传参时需要传递数组
 
-    @DeleteMapping("/:deleteBatch")
-    @PreAuthorize("hasAuthority('oa:employee:delete')")
-    fun deleteBatch(@RequestBody jobNumberList: List<String>): JsonResponse<Unit> {
-        service.deleteBatch(jobNumberList)
+        service.delete(*jobNumbers)
         return success()
     }
 

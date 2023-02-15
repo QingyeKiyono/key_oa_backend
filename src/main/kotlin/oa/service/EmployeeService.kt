@@ -44,13 +44,6 @@ interface EmployeeService {
     fun update(employee: Employee): Employee
 
     /**
-     * 根据Id删除员工信息
-     *
-     * @param id 需要删除的员工id
-     */
-    fun deleteById(id: Long)
-
-    /**
      * 查看员工数量
      *
      * @return 所有的员工数量
@@ -58,9 +51,7 @@ interface EmployeeService {
     fun count(): Long
 
     /**
-     * 删除一批员工
-     *
-     * @param jobNumberList 删除的员工工号列表
+     * 根据工号删除员工信息
      */
-    fun deleteBatch(jobNumberList: List<String>)
+    fun delete(vararg jobNumbers: String)
 }

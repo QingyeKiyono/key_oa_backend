@@ -6,7 +6,6 @@ import oa.service.EmployeeService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
-import org.springframework.transaction.annotation.Transactional
 
 @Service
 class EmployeeServiceImpl @Autowired constructor(private val repository: EmployeeRepository) : EmployeeService {
@@ -26,15 +25,10 @@ class EmployeeServiceImpl @Autowired constructor(private val repository: Employe
 
     override fun update(employee: Employee): Employee = repository.save(employee)
 
-    override fun deleteById(id: Long) = repository.deleteById(id)
-
     override fun count(): Long = repository.count()
 
-    @Transactional(rollbackFor = [Exception::class])
-    override fun deleteBatch(jobNumberList: List<String>) {
-        val employeeList = repository.findAllByJobNumberIn(jobNumberList)
-        if (employeeList != null) {
-            repository.deleteAllInBatch(employeeList)
-        }
+    override fun delete(vararg jobNumbers: String) {
+        val employees = repository.findAllByJobNumberIn(jobNumbers.toList())
+        employees?.also { repository.deleteAll(employees) }
     }
 }
