@@ -140,7 +140,7 @@ class EmployeeTest @Autowired constructor(
     @Rollback
     fun testSave() {
         val employee = Employee(
-            id = null, jobNumber = "20222200", name = "测试", phone = "",
+            id = null, jobNumber = "20222200", name = "测试", gender = true, phone = "",
             email = "", password = "", birthday = Date(), verified = true, identity = "2011231231"
         )
 

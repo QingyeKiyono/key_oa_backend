@@ -71,7 +71,7 @@ class EmployeeServiceTest @Autowired constructor(private val employeeService: Em
     @Rollback
     fun testSave() {
         var employee = Employee(
-            id = null, jobNumber = "20222200", name = "测试", phone = "",
+            id = null, jobNumber = "20222200", name = "测试", phone = "", gender = true,
             email = "", password = "", birthday = Date(), verified = true, identity = "2011231231"
         )
 

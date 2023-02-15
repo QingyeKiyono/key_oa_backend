@@ -13,6 +13,8 @@ class Employee(
 
     @Column(nullable = false) var name: String,
 
+    @Column(nullable = false) var gender: Boolean,  // 性别，true：男；false：女
+
     @Desensitize(strategy = Desensitize.DesensitizeStrategy.PHONE)
     @Column(nullable = false, unique = true) var phone: String,
 
