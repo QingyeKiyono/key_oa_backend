@@ -188,23 +188,10 @@ class EmployeeTest @Autowired constructor(
     @Transactional
     @Rollback
     fun testDelete() {
-        mockMvc.delete("$REQUEST_PATH/1") {
-            header("token", token)
-        }.andExpect {
-            status { isOk() }
-            jsonPath("$.code") { value("00000") }
-        }
-    }
-
-    @Test
-    @Transactional
-    @Rollback
-    fun testDeleteBatch() {
-        mockMvc.delete("$REQUEST_PATH/:deleteBatch") {
+        mockMvc.delete(REQUEST_PATH) {
             header("token", token)
             content = mapper.writeValueAsString(listOf("20221390", "20223395"))
             contentType = MediaType.APPLICATION_JSON
-            characterEncoding = "UTF-8"
         }.andExpect {
             status { isOk() }
             jsonPath("$.code") { value("00000") }

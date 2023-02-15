@@ -100,23 +100,18 @@ class EmployeeServiceTest @Autowired constructor(private val employeeService: Em
     @Test
     @Transactional
     @Rollback
-    fun testDeleteById() {
-        employeeService.deleteById(1L)
-        val count = employeeService.count()
+    fun testDelete() {
+        val jobNumbers = arrayOf("20221390", "20223395")
+        employeeService.delete(*jobNumbers)
+        var count = employeeService.count()
         assertThat(count)
-            .`as`("Count should be 9.")
-            .isEqualTo(9L)
-    }
-
-    @Test
-    @Transactional
-    @Rollback
-    fun testDeleteBatch() {
-        val jobNumbers: List<String> = listOf("20221390", "20223395")
-        employeeService.deleteBatch(jobNumbers)
-        val count = employeeService.count()
-        assertThat(count)
-            .`as`("Count should be 9.")
+            .`as`("Count should be 8.")
             .isEqualTo(8L)
+
+        employeeService.delete("20223930")
+        count = employeeService.count()
+        assertThat(count)
+            .`as`("Count should be 7.")
+            .isEqualTo(7L)
     }
 }
