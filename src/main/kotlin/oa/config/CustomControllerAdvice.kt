@@ -20,13 +20,11 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class CustomControllerAdvice {
     val log by logger()
 
-    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(UsernameNotFoundException::class)
     fun usernameNotFound(exception: UsernameNotFoundException): JsonResponse<Unit> {
         return error("A0201", "用户账户不存在")
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(BadCredentialsException::class)
     fun badCredentialsExceptionHandler(exception: BadCredentialsException): JsonResponse<Unit> {
         return when (exception.message) {
@@ -41,19 +39,16 @@ class CustomControllerAdvice {
         }
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(MalformedJwtException::class)
     fun malformedJwtExceptionHandler(exception: MalformedJwtException): JsonResponse<Unit> {
         return error("A0403", "Token非法")
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(ExpiredJwtException::class)
     fun expiredJwtExceptionHandler(exception: ExpiredJwtException): JsonResponse<Unit> {
         return error("A0404", "Token已过期")
     }
 
-    @ResponseStatus(HttpStatus.OK)
     @ExceptionHandler(IllegalArgumentException::class)
     fun illegalArgumentExceptionHandler(exception: IllegalArgumentException): JsonResponse<Unit> {
         if (log.isInfoEnabled) {
