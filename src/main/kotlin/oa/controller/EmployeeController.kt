@@ -54,14 +54,14 @@ class EmployeeController @Autowired constructor(private val service: EmployeeSer
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('oa:employee:delete')")
-    fun delete(@PathVariable id: Long): JsonResponse<Void> {
+    fun delete(@PathVariable id: Long): JsonResponse<Unit> {
         service.deleteById(id)
         return success()
     }
 
     @DeleteMapping("/:deleteBatch")
     @PreAuthorize("hasAuthority('oa:employee:delete')")
-    fun deleteBatch(@RequestBody jobNumberList: List<String>): JsonResponse<Void> {
+    fun deleteBatch(@RequestBody jobNumberList: List<String>): JsonResponse<Unit> {
         service.deleteBatch(jobNumberList)
         return success()
     }
