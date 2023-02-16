@@ -40,3 +40,4 @@ mvnw.cmd
 .gradle/
 
 # application-online.dll  # 需要保密的配置信息
+application-online.yml
