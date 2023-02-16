@@ -1,11 +1,8 @@
 spring:
-  main:
-    banner-mode: off
-
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     username: root
-    password: root
+    password: root  # 这里密码过于简单，因此不再需要加密
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/key_oa?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
 
@@ -14,16 +11,19 @@ spring:
     init:
       data-locations: classpath:sql/data.sql
       mode: always
+
   jpa:
     defer-datasource-initialization: true
     open-in-view: true
+    hibernate:
+      ddl-auto: create
+
+    # 关闭Hibernate的警告
     properties:
       jakarta:
         persistence:
           sharedCache:
             mode: UNSPECIFIED
-    hibernate:
-      ddl-auto: create
 
   # Redis
   data:
@@ -36,6 +36,9 @@ spring:
           max-active: 32
           max-idle: 16
           min-idle: 8
+
+  config:
+    import: application-online.yml  # 这里数据保密，不过每次此文件更新后都会给出demo
 
 management:
   endpoints:
