@@ -22,6 +22,8 @@ spring:
         persistence:
           sharedCache:
             mode: UNSPECIFIED
+    hibernate:
+      ddl-auto: create
 
   # Redis
   data:
@@ -34,9 +36,6 @@ spring:
           max-active: 32
           max-idle: 16
           min-idle: 8
-
-  config:
-    import: application-dev.yml
 
 management:
   endpoints:
