@@ -38,3 +38,5 @@ mvnw
 mvnw.cmd
 .jpb/
 .gradle/
+
+# application-online.dll  # 需要保密的配置信息
