@@ -5,6 +5,7 @@ import oa.repository.EmployeeRepository
 import oa.service.EmployeeService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.Pageable
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 
 @Service
@@ -17,7 +18,7 @@ class EmployeeServiceImpl @Autowired constructor(private val repository: Employe
 
     override fun save(employee: Employee): Employee {
         // 设置初始密码为'1234'，状态为'未激活'
-        employee.password = "1234"
+        employee.password = BCryptPasswordEncoder().encode("1234")
         employee.verified = false
 
         return repository.save(employee)
