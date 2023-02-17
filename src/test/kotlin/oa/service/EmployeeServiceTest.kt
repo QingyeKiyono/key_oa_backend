@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.PageRequest
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.test.annotation.Rollback
 import org.springframework.transaction.annotation.Transactional
 import java.util.Date
@@ -72,17 +73,18 @@ class EmployeeServiceTest @Autowired constructor(private val employeeService: Em
     fun testSave() {
         var employee = Employee(
             id = null, jobNumber = "20222200", name = "测试", phone = "", gender = true,
-            email = "", password = "", birthday = Date(), verified = true, identity = "2011231231"
+            email = "", password = "", birthday = Date(), activated = true, identity = "2011231231"
         )
 
         employee = employeeService.save(employee)
         assertThat(employee)
             .`as`("Password should be '1234'.")
-            .extracting("password").isEqualTo("1234")
+            .extracting("password")
+            .matches { BCryptPasswordEncoder().matches("1234", it.toString()) }
 
         assertThat(employee)
-            .`as`("Verified should be false.")
-            .extracting("verified").isEqualTo(false)
+            .`as`("Activated should be false.")
+            .extracting("activated").isEqualTo(false)
     }
 
     @Test

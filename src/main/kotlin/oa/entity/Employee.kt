@@ -31,7 +31,7 @@ class Employee(
     @Desensitize(strategy = Desensitize.DesensitizeStrategy.PASSWORD)
     @Column(nullable = false) var password: String,
 
-    @Column(nullable = false) var verified: Boolean,
+    @Column(nullable = false) var activated: Boolean,  // 账号是否激活，未激活不允许使用
 
     @JsonIgnore
     @ManyToMany(mappedBy = "employees", cascade = [CascadeType.ALL])

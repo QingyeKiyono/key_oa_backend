@@ -19,7 +19,7 @@ class EmployeeServiceImpl @Autowired constructor(private val repository: Employe
     override fun save(employee: Employee): Employee {
         // 设置初始密码为'1234'，状态为'未激活'
         employee.password = BCryptPasswordEncoder().encode("1234")
-        employee.verified = false
+        employee.activated = false
 
         return repository.save(employee)
     }
