@@ -21,5 +21,5 @@ interface EmployeeRepository : JpaRepository<Employee, Long>, JpaSpecificationEx
      * @param jobNumbers 需要查找的工号列表
      * @return 查找到的员工
      */
-    fun findAllByJobNumberIn(jobNumbers: List<String>): List<Employee>?
+    fun findAllByJobNumberIn(jobNumbers: List<String>): List<Employee>
 }
