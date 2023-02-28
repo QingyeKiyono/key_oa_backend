@@ -7,7 +7,9 @@ import oa.service.PageResService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.domain.PageRequest
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
@@ -39,4 +41,9 @@ class PageResController @Autowired constructor(val pageResService: PageResServic
     @GetMapping("/count")
     @PreAuthorize("isAuthenticated()")
     fun count(): JsonResponse<Long> = success(pageResService.count())
+
+    @DeleteMapping("")
+    @PreAuthorize("hasAuthority('oa:permission:delete')")
+    fun delete(@RequestBody vararg urls: String): JsonResponse<Unit> =
+        success(pageResService.delete(*urls))
 }

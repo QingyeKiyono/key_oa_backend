@@ -32,4 +32,6 @@ interface PageResService {
      * @return 页面的数量
      */
     fun count(): Long
+
+    fun delete(vararg urls: String)
 }

@@ -32,4 +32,9 @@ class PageResServiceImpl @Autowired constructor(
     override fun findAll(pageable: Pageable): List<PageRes> = repository.findAll(pageable).toList()
 
     override fun count(): Long = repository.count()
+
+    override fun delete(vararg urls: String) {
+        val pages = repository.findAllByUrlIn(urls.toList())
+        repository.deleteAll(pages)
+    }
 }
