@@ -30,6 +30,6 @@ class EmployeeServiceImpl @Autowired constructor(private val repository: Employe
 
     override fun delete(vararg jobNumbers: String) {
         val employees = repository.findAllByJobNumberIn(jobNumbers.toList())
-        employees?.also { repository.deleteAll(employees) }
+        employees.also { repository.deleteAll(employees) }
     }
 }
