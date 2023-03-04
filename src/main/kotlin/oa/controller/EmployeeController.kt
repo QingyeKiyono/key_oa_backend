@@ -21,7 +21,7 @@ class EmployeeController @Autowired constructor(private val service: EmployeeSer
             // Return all employees without pagination
             service.findAll()
         } else {
-            // Return employees with pagination
+            // Return employees with pagination，size will be validated in 'PageRequest.of' method.
             service.findAll(PageRequest.of(page - 1, size))
         }
         return success(employees)
