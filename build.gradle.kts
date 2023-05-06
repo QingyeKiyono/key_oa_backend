@@ -1,8 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    java
-
     kotlin("jvm") version "1.7.22"
     kotlin("plugin.spring") version "1.7.22"
     kotlin("plugin.jpa") version "1.7.22"
@@ -63,12 +61,6 @@ dependencies {
 group = "com.key.oa"
 version = "0.0.1-SNAPSHOT"
 description = "KeyOA-backend"
-java.sourceCompatibility = JavaVersion.VERSION_17
-java.targetCompatibility = JavaVersion.VERSION_17
-
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-}
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {
@@ -76,9 +68,3 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "17"
     }
 }
-
-tasks.withType<Test> {
-    useJUnitPlatform()
-}
-
-buildscript { repositories { mavenCentral() } }
