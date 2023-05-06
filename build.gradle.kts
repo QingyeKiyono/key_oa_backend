@@ -6,7 +6,7 @@ plugins {
     kotlin("plugin.jpa") version "1.7.22"
     kotlin("plugin.allopen") version "1.7.22"
 
-    id("org.springframework.boot") version "3.0.2"
+    id("org.springframework.boot") version "3.0.6"
 }
 
 apply(plugin = "io.spring.dependency-management")
